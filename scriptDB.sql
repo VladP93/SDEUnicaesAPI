@@ -1,7 +1,7 @@
 -- Script Seguimiento de egresados --
 
-CREATE DATABASE seguimientoEgresados;
-USE seguimientoEgresados;
+CREATE DATABASE sdeunicaes;
+USE sdeunicaes;
 
 CREATE TABLE Persona(
     dui VARCHAR(9) NOT NULL PRIMARY KEY,
