@@ -14,9 +14,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $correo
  * @property string $fechanacimiento
  * @property string $sexo
+ * @property string $foto
  * @property Egresado $egresado
  * @property Emisor $emisor
  * @property Receptor $receptor
+ * @property Usuario $usuario
  */
 class Persona extends Model
 {
@@ -51,7 +53,7 @@ class Persona extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nit', 'nombre', 'apellido', 'telefono', 'direccion', 'correo', 'fechanacimiento', 'sexo'];
+    protected $fillable = ['nit', 'nombre', 'apellido', 'telefono', 'direccion', 'correo', 'fechanacimiento', 'sexo', 'foto'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -75,5 +77,13 @@ class Persona extends Model
     public function receptor()
     {
         return $this->hasOne('App\Receptor', 'dui', 'dui');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function usuario()
+    {
+        return $this->hasOne('App\Usuario', 'dui', 'dui');
     }
 }

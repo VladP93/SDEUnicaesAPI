@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $institucion
  * @property int $arealaboral
  * @property string $nombre
- * @property string $fecha
  * @property Institucion $institucion
  * @property Arealaboral $arealaboral
  * @property Diplomacertificacionegresado[] $diplomacertificacionegresados
@@ -33,7 +32,7 @@ class DiplomaCertificacion extends Model
     /**
      * @var array
      */
-    protected $fillable = ['institucion', 'arealaboral', 'nombre', 'fecha'];
+    protected $fillable = ['institucion', 'arealaboral', 'nombre'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

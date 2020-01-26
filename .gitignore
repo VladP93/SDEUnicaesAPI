@@ -13,3 +13,4 @@ yarn-error.log
 /app/Http/Controllers/MiControlador.php
 /app/MiModelo.php
 /resources/views/prueba
+/resources/views/sdeviews

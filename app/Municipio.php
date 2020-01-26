@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $idmunicipio
- * @property int $departamento
+ * @property int $iddepartamento
  * @property string $municipio
  * @property Departamento $departamento
  * @property Ubicacion[] $ubicacions
@@ -30,14 +30,14 @@ class Municipio extends Model
     /**
      * @var array
      */
-    protected $fillable = ['departamento', 'municipio'];
+    protected $fillable = ['iddepartamento', 'municipio'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function departamento()
     {
-        return $this->belongsTo('App\Departamento', 'departamento', 'iddepartamento');
+        return $this->belongsTo('App\Departamento', 'iddepartamento', 'iddepartamento');
     }
 
     /**
