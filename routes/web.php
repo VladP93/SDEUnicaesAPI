@@ -17,3 +17,5 @@ Route::get('/', function () {
 
 Route::get('/holamundo', 'MiControlador@index');
 Route::post('/holamundo', 'MiControlador@agregar');
+# Route::resource('/usuarios','UsuarioController');
+# Route::resource('/departamentos', 'DepartamentoController');
