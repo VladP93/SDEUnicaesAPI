@@ -135,14 +135,6 @@ CREATE TABLE Decano(
     FOREIGN KEY(facultad) REFERENCES Facultad(idfacultad)
 );
 
-CREATE TABLE Empresa(
-    idempresa INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    empresa VARCHAR(50) NOT NULL,
-    telefono VARCHAR(9) NOT NULL,
-    ubicacion INT NOT NULL,
-    FOREIGN KEY(ubicacion) REFERENCES Ubicacion(idubicacion) 
-);
-
 CREATE TABLE AreaLaboral(
     idArea INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     area VARCHAR(50) NOT NULL
@@ -153,24 +145,25 @@ CREATE TABLE Cargo(
     cargo VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE Institucion(
+    idinstitucion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    ubicacion INT NOT NULL,
+    telefono VARCHAR(9) NOT NULL,
+    FOREIGN KEY(ubicacion) REFERENCES Ubicacion(idubicacion)
+);
+
 CREATE TABLE ExperienciaLaboral(
     idexperiencia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     egresado VARCHAR(9) NOT NULL,
-    empresa INT NOT NULL,
+    institucion INT NOT NULL,
     cargo INT NOT NULL,
     arealaboral INT NOT NULL,
     fechainicio DATE NOT NULL,
     fechafin DATE NOT NULL,
     FOREIGN KEY(egresado) REFERENCES Egresado(dui),
-    FOREIGN KEY(empresa) REFERENCES Empresa(idempresa),
+    FOREIGN KEY(institucion) REFERENCES Institucion(idinstitucion),
     FOREIGN KEY(cargo) REFERENCES Cargo(idcargo)
-);
-
-CREATE TABLE Institucion(
-    idinstitucion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    ubicacion INT NOT NULL,
-    FOREIGN KEY(ubicacion) REFERENCES Ubicacion(idubicacion)
 );
 
 CREATE TABLE DiplomaCertificacion(
@@ -613,8 +606,9 @@ INSERT INTO CarreraFacultad(idcarrera, idfacultad) VALUES(33,2);
 INSERT INTO CarreraFacultad(idcarrera, idfacultad) VALUES(34,2);
 
 -- Instituciones
-INSERT INTO Institucion(nombre,ubicacion) VALUES('UNICAES, Santa Ana',1);
-INSERT INTO Institucion(nombre,ubicacion) VALUES('Fe y Alegría',3);
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('UNICAES, Santa Ana',1,'2484-0600');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('UNICAES, Ilobasco',2,'2378-1500');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Fe y Alegría',3, '2447-2380');
 
 
 -- Areas Laborales

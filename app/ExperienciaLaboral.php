@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $idexperiencia
  * @property string $egresado
- * @property int $empresa
+ * @property int $institucion
  * @property int $cargo
  * @property int $arealaboral
  * @property string $fechainicio
  * @property string $fechafin
  * @property Egresado $egresado
- * @property Empresa $empresa
+ * @property Institucion $institucion
  * @property Cargo $cargo
  */
 class ExperienciaLaboral extends Model
@@ -23,7 +23,7 @@ class ExperienciaLaboral extends Model
      * 
      * @var string
      */
-    protected $table = 'experienciaLaboral';
+    protected $table = 'experiencialaboral';
 
     /**
      * The primary key for the model.
@@ -35,7 +35,7 @@ class ExperienciaLaboral extends Model
     /**
      * @var array
      */
-    protected $fillable = ['egresado', 'empresa', 'cargo', 'arealaboral', 'fechainicio', 'fechafin'];
+    protected $fillable = ['egresado', 'institucion', 'cargo', 'arealaboral', 'fechainicio', 'fechafin'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -48,9 +48,9 @@ class ExperienciaLaboral extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function empresa()
+    public function institucion()
     {
-        return $this->belongsTo('App\Empresa', 'empresa', 'idempresa');
+        return $this->belongsTo('App\Institucion', 'institucion', 'idinstitucion');
     }
 
     /**

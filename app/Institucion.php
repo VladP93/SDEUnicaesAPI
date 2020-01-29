@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $idinstitucion
  * @property int $ubicacion
  * @property string $nombre
+ * @property string $telefono
  * @property Ubicacion $ubicacion
  * @property Diplomacertificacion[] $diplomacertificacions
+ * @property Experiencialaboral[] $experiencialaborals
  */
 class Institucion extends Model
 {
@@ -30,7 +32,7 @@ class Institucion extends Model
     /**
      * @var array
      */
-    protected $fillable = ['ubicacion', 'nombre'];
+    protected $fillable = ['ubicacion', 'nombre', 'telefono'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -46,5 +48,13 @@ class Institucion extends Model
     public function diplomacertificacions()
     {
         return $this->hasMany('App\Diplomacertificacion', 'institucion', 'idinstitucion');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function experiencialaborals()
+    {
+        return $this->hasMany('App\Experiencialaboral', 'institucion', 'idinstitucion');
     }
 }
