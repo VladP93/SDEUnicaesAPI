@@ -132,6 +132,7 @@ CREATE TABLE CarreraFacultad(
 CREATE TABLE Decano(
     dui VARCHAR(9) NOT NULL PRIMARY KEY,
     facultad INT NOT NULL,
+    activo CHAR(1) NOT NULL,
     FOREIGN KEY(facultad) REFERENCES Facultad(idfacultad)
 );
 
@@ -714,5 +715,30 @@ INSERT INTO DiplomaCertificacion(nombre, institucion, arealaboral) VALUES ('Tall
 INSERT INTO DiplomaCertificacion(nombre, institucion, arealaboral) VALUES ('Taller de guitarra',1,59);
 INSERT INTO DiplomaCertificacion(nombre, institucion, arealaboral) VALUES ('Taller de violín',1,59);
 
+INSERT INTO Aptitud(aptitud) VALUES('Responsable');
+INSERT INTO Aptitud(aptitud) VALUES('Trabajo en equipo');
+INSERT INTO Aptitud(aptitud) VALUES('Amable');
+INSERT INTO Aptitud(aptitud) VALUES('Puntual');
 
+INSERT INTO Cargo(cargo) VALUES('CEO');
+INSERT INTO Cargo(cargo) VALUES('Coordinador de venta');
+INSERT INTO Cargo(cargo) VALUES('Coordinador de bodega');
+INSERT INTO Cargo(cargo) VALUES('Coordinador RRHH');
+INSERT INTO Cargo(cargo) VALUES('Lider de Ventas');
+INSERT INTO Cargo(cargo) VALUES('Transportadores');
+INSERT INTO Cargo(cargo) VALUES('Aux de bodega');
+INSERT INTO Cargo(cargo) VALUES('Aux de transporte');
 
+INSERT INTO Persona(dui,nit,nombre,apellido,telefono,direccion,correo,fechanacimiento,sexo,foto)
+VALUES('0000000-0','0000-000000-000-0','persona de','prueba','0000-0000','direcion de prueba','correo.prueba@catolica.edu.sv',NOW(),'X','url.fotoprueba.jgp');
+
+INSERT INTO Decano(dui,facultad) VALUES('0000000-0',4);
+
+INSERT INTO Egresado(dui,carnet) VALUES('0000000-0','2020-PP-000');
+INSERT INTO CarreraEgresado(dui,idcarrera) VALUES('0000000-0',26);
+INSERT INTO DiplomaCertificacionEgresado(dui,diplomacertificacion,fecha,foto) VALUES('0000000-0',9,NOW(),'url.fotodiploma.jpg');
+INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(1,'0000000-0');
+INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(2,'0000000-0');
+
+INSERT INTO ExperienciaLaboral(egresado,institucion,cargo,arealaboral,fechainicio,fechafin)
+VALUES('0000000-0',3,4,69,NOW(),NOW());

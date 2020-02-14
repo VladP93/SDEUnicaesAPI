@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Facultad extends Model
 {
+    protected $hidden = ['idubicacion'];
     /**
      * The table associated with the model.
      * 
