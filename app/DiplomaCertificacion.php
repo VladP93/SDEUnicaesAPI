@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DiplomaCertificacion extends Model
 {
+    public $timestamps = false;
     /**
      * The table associated with the model.
      * 

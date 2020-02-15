@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AreaLaboral extends Model
 {
+    public $timestamps = false;
     /**
      * The table associated with the model.
      * 

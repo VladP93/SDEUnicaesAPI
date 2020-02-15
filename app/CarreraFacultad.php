@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CarreraFacultad extends Model
 {
+    public $timestamps = false;
     /**
      * The table associated with the model.
      * 

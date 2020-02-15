@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ExperienciaLaboral extends Model
 {
+    public $timestamps = false;
     /**
      * The table associated with the model.
      * 
