@@ -46,8 +46,14 @@ class TipoCarreraController extends Controller
      * @param  \App\TipoCarrera  $tipoCarrera
      * @return \Illuminate\Http\Response
      */
-    public function show(TipoCarrera $tipoCarrera)
+    public function show($tipoCarrera)
     {
+        $tiposcarrera = TipoCarrera::find($tipoCarrera);
+        if(!$tiposcarrera){
+            return response()->json(['mensaje'=>'Tipo de carrera no definido']);
+        }else{
+            return $tiposcarrera;
+        }
         //
     }
 

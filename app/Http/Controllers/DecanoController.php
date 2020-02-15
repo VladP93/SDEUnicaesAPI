@@ -50,8 +50,15 @@ class DecanoController extends Controller
      * @param  \App\Decano  $decano
      * @return \Illuminate\Http\Response
      */
-    public function show(Decano $decano)
+    public function show($decano)
     {
+        $decanos = \DB::table('Decano')
+        ->join('Persona','Decano.dui','=','Persona.dui')
+        ->join('Facultad','Decano.facultad','=','Facultad.idfacultad')
+        ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad')
+        ->where('Persona.dui',$decano)
+        ->get();
+        return $decanos;
         //
     }
 

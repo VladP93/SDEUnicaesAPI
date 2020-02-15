@@ -46,8 +46,15 @@ class AreaLaboralController extends Controller
      * @param  \App\AreaLaboral  $areaLaboral
      * @return \Illuminate\Http\Response
      */
-    public function show(AreaLaboral $areaLaboral)
+    public function show($areaLaboral)
     {
+        $areaslaborales = AreaLaboral::find($areaLaboral);
+
+        if(!$areaslaborales){
+            return response()->json(['mensaje'=>'Area laboral no existe']);
+        }else{
+            return $areaslaborales;
+        }
         //
     }
 

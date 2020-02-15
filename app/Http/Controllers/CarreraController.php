@@ -46,8 +46,16 @@ class CarreraController extends Controller
      * @param  \App\Carrera  $carrera
      * @return \Illuminate\Http\Response
      */
-    public function show(Carrera $carrera)
+    public function show($carrera)
     {
+        $carreras = Carrera::find($carrera);
+
+        if(!$carreras){
+            return response()->json(['mensaje'=>'Carrera inexistente']);
+        }else{
+            return $carreras;
+        }
+        //
         //
     }
 

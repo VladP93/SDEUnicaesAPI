@@ -46,8 +46,15 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function show(Cargo $cargo)
+    public function show($cargo)
     {
+        $cargos = Cargo::find($cargo);
+
+        if(!$cargos){
+            return response()->json(['mensaje'=>'Cargo no existe']);
+        }else{
+            return $cargos;
+        }
         //
     }
 

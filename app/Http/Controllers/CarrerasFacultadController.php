@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\CarreraFacultad;
+use App\Carrera;
+use App\Facultad;
 use Illuminate\Http\Request;
 
 class CarrerasFacultadController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -51,8 +54,21 @@ class CarrerasFacultadController extends Controller
      * @param  \App\CarreraFacultad  $carreraFacultad
      * @return \Illuminate\Http\Response
      */
-    public function show(CarreraFacultad $carreraFacultad)
+    public function show($carrera)
     {
+
+        $carreras = \DB::table('Carrera')
+        ->where('Carrera.idcarrera',$carrera)
+        ->join('CarreraFacultad','CarreraFacultad.idcarrera','=','Carrera.idcarrera')
+        ->join('Facultad','CarreraFacultad.idfacultad','=','Facultad.idfacultad')
+        ->select('Carrera.carrera','Facultad.facultad')
+        ->get();
+
+        if(!$carreras){
+            return response()->json(['mensaje'=>'Carrera inexistente']);
+        }else{
+            return $carreras;
+        }
         //
     }
 

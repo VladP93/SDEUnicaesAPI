@@ -51,8 +51,16 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function show(Institucion $institucion)
+    public function show($institucion)
     {
+        $instituciones = \DB::table('Institucion')
+        ->join('Ubicacion','Institucion.ubicacion','=','Ubicacion.idubicacion')
+        ->join('Municipio','Ubicacion.idmunicipio','=','Municipio.idmunicipio')
+        ->join('Departamento','Municipio.iddepartamento','=','Departamento.iddepartamento')
+        ->select('idinstitucion','Institucion.nombre','Ubicacion.direccion','Departamento.departamento','Municipio.municipio')
+        ->where('Institucion.idinstitucion',$institucion)
+        ->get();
+        return $instituciones;
         //
     }
 

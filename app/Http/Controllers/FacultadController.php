@@ -50,8 +50,10 @@ class FacultadController extends Controller
      * @param  \App\Facultad  $facultad
      * @return \Illuminate\Http\Response
      */
-    public function show(Facultad $facultad)
+    public function show($facultad)
     {
+        $facultad = Facultad::find($facultad);
+        return $facultad;
         //
     }
 

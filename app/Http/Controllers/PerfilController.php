@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Egresado;
+use App\Aptitud;
 use Illuminate\Http\Request;
 
 class PerfilController extends Controller
@@ -30,20 +31,21 @@ class PerfilController extends Controller
         ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
         'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
         'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+#        -with('Aptitud');
         ->get();
 
         return $egresado;
 
     }
 
-    public function getAptitudes($dui){
-        $aptitudes = \DB::table('Aptitud')
-        ->join('AptitudEgresado','Aptitud.idaptitud','=','AptitudEgresado.idaptitud')
-        ->join('Egresado','Egresado.dui','=','AptitudEgresado.dui')
-        ->where('Egresado.dui','=',$dui)
-        ->select('aptitud')
-        ->get();
-    }
+#    public function getAptitudes($dui){
+#        $aptitudes = \DB::table('Aptitud')
+#        ->join('AptitudEgresado','Aptitud.idaptitud','=','AptitudEgresado.idaptitud')
+#        ->join('Egresado','Egresado.dui','=','AptitudEgresado.dui')
+#        ->where('Egresado.dui','=',$dui)
+#        ->select('aptitud')
+#        ->get();
+#    }
 
     /**
      * Show the form for creating a new resource.
@@ -74,6 +76,25 @@ class PerfilController extends Controller
      */
     public function show($egresado)
     {
+        $egresado = \DB::table('Egresado')
+        ->join('Persona','Egresado.dui','=','Persona.dui')
+        ->join('CarreraEgresado','Egresado.dui','=','CarreraEgresado.dui')
+        ->join('Carrera','CarreraEgresado.idcarrera','=','Carrera.idcarrera')
+        ->join('DiplomaCertificacionEgresado','Egresado.dui','=','DiplomaCertificacionEgresado.dui')
+        ->join('DiplomaCertificacion','DiplomaCertificacionEgresado.diplomacertificacion','=','DiplomaCertificacion.iddiplomadocertificacion')
+        ->join('AptitudEgresado','Egresado.dui','=','AptitudEgresado.dui')
+        ->join('Aptitud','AptitudEgresado.idaptitud','=','Aptitud.idaptitud')
+        ->join('ExperienciaLaboral','Egresado.dui','=','ExperienciaLaboral.egresado')
+        ->join('Institucion','ExperienciaLaboral.institucion','=','Institucion.idinstitucion')
+        ->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
+        ->join('AreaLaboral','ExperienciaLaboral.arealaboral','=','AreaLaboral.idarea')
+        ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
+        'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
+        'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+        ->where('Egresado.dui',$egresado)
+        ->get();
+
+        return $egresado;
         //
     }
 

@@ -46,8 +46,15 @@ class AptitudController extends Controller
      * @param  \App\Aptitud  $aptitud
      * @return \Illuminate\Http\Response
      */
-    public function show(Aptitud $aptitud)
+    public function show($aptitud)
     {
+        $aptitudes = Aptitud::find($aptitud);
+
+        if(!$aptitudes){
+            return response()->json(['mensaje'=>'Aptitud inexistente']);
+        }else{
+            return $aptitudes;
+        }
         //
     }
 
