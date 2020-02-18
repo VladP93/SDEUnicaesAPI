@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Usuario;
+use App\Persona;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -37,6 +38,26 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        $usuario = new Usuario;
+        $persona = new Persona;
+
+        $persona->dui = $request->dui;
+        $persona->nit = $request->nit;
+        $persona->nombre = $request->nombre;
+        $persona->apellido = $request->apellido;
+        $persona->telefono = $request->telefono;
+        $persona->direccion = $request->direccion;
+        $persona->correo = $request->correo;
+        $persona->fechanacimiento = $request->fechanacimiento;
+        $persona->sexo = $request->sexo;
+        $persona->foto = $request->foto;
+        $persona->save();
+
+        $usuario->dui = $request->dui;
+        $usuario->usuario = $request->usuario;
+        $usuario->contrasena = $request->contrasena;
+        $usuario->save();
+        return response()->json(['Mensaje'=>'Nuevo Usuario: '.$request->usuario.' registrado'],200);
         //
     }
 
@@ -46,8 +67,10 @@ class UsuarioController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Usuario $usuario)
+    public function show($idusuario)
     {
+        $usuario = Usuario::find($idusuario);
+        return $usuario;
         //
     }
 

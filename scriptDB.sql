@@ -734,6 +734,8 @@ VALUES('0000000-0','0000-000000-000-0','persona de','prueba','0000-0000','direci
 
 INSERT INTO Decano(dui,facultad) VALUES('0000000-0',4);
 
+INSERT INTO Usuario(dui,usuario,contrasena) VALUES('0000000-0', 'user', 'pass');
+
 INSERT INTO Egresado(dui,carnet) VALUES('0000000-0','2020-PP-000');
 INSERT INTO CarreraEgresado(dui,idcarrera) VALUES('0000000-0',26);
 INSERT INTO DiplomaCertificacionEgresado(dui,diplomacertificacion,fecha,foto) VALUES('0000000-0',9,NOW(),'url.fotodiploma.jpg');

@@ -37,10 +37,11 @@ class AptitudController extends Controller
      */
     public function store(Request $request)
     {
-#        $aptitud = new Aptitud;
-#
-#        $aptitud->aptitud = $request->aptitud;
-#        $aptitud->save();
+        $aptitud = new Aptitud;
+
+        $aptitud->aptitud = $request->aptitud;
+        $aptitud->save();
+        return response()->json(['Mensaje'=>'Aptitud agregada exitosamente'],200);
         //
     }
 

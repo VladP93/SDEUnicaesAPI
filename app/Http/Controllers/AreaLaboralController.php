@@ -37,6 +37,12 @@ class AreaLaboralController extends Controller
      */
     public function store(Request $request)
     {
+        $areaLaboral = new AreaLaboral;
+
+        $areaLaboral->area = $request->area;
+        $areaLaboral->save();
+
+        return response()->json(['Mensaje'=>'Area laboral agregada exitosamente'],200);
         //
     }
 

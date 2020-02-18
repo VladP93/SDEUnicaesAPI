@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institucion;
+use App\Ubicacion;
 use Illuminate\Http\Request;
 
 class InstitucionController extends Controller
@@ -42,6 +43,17 @@ class InstitucionController extends Controller
      */
     public function store(Request $request)
     {
+        $institucion = new Institucion;
+        $ubicacion = new Ubicacion;
+
+        $ubicacion->direccion = $request->direccion;
+        $ubicacion->idmunicipio = $request->idmunicipio;
+        $ubicacion->save();
+        $institucion->nombre = $request->nombre;
+        $institucion->ubicacion = \DB::table('Ubicacion')->latest('idubicacion')->first()->idubicacion;
+        $institucion->telefono = $request->telefono;
+        $institucion->save();
+        return response()->json(['Mensaje'=>'Institución agregada exitosamente'],200);
         //
     }
 

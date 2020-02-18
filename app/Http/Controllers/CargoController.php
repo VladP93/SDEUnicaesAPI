@@ -37,6 +37,11 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
+        $cargo = new Cargo;
+
+        $cargo->cargo = $request->cargo;
+        $cargo->save();
+        return response()->json(['Mensaje'=>'Cargo agregado exitosamente'],200);
         //
     }
 

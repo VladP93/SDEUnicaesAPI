@@ -41,6 +41,12 @@ class FacultadController extends Controller
      */
     public function store(Request $request)
     {
+        $facultad = new Facultad;
+
+        $facultad->facultad = $request->facultad;
+        $facultad->idubicacion = 1;
+        $facultad->save();
+        return response()->json(['Mensaje'=>'Facultad agregada exitosamente'],200);
         //
     }
 

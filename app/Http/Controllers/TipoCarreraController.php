@@ -37,6 +37,12 @@ class TipoCarreraController extends Controller
      */
     public function store(Request $request)
     {
+        $tipoCarrera = new TipoCarrera;
+
+        $tipoCarrera->tipocarrera = $request->tipocarrera;
+        $tipoCarrera->save();
+
+        return response()->json(['Mensaje'=>'Tipo de carrera agregado exitosamente'],200);
         //
     }
 

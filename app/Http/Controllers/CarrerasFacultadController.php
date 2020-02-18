@@ -45,6 +45,18 @@ class CarrerasFacultadController extends Controller
      */
     public function store(Request $request)
     {
+        $carreraFacultad = new CarreraFacultad;
+        $carrera = new Carrera;
+
+        $carrera->carrera = $request->carrera;
+        $carrera->tipocarrera = $request->tipocarrera;
+        $carrera->save();
+        $carreraFacultad->idcarrera = \DB::table('Carrera')->latest('idcarrera')->first()->idcarrera;
+        $carreraFacultad->idfacultad = $request->idfacultad;
+        $carreraFacultad->save();
+
+        return response()->json(['Mensaje'=>'Carrera agregada exitosamente'],200);
+        //
         //
     }
 
