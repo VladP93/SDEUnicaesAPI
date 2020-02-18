@@ -15,7 +15,7 @@ class UbicacionController extends Controller
     public function index()
     {
         //
-        $ubicacion=Ubicacion::find(1);
+        $ubicacion=Ubicacion::all();
         return $ubicacion;
     }
 
@@ -37,6 +37,12 @@ class UbicacionController extends Controller
      */
     public function store(Request $request)
     {
+        $ubicacion = new Ubicacion;
+
+        $ubicacion->idmunicipio = $request->idmunicipio;
+        $ubicacion->direccion = $request->direccion;
+        $ubicacion->save();
+        return response()->json(['Mensaje'=>'Ubicacion agregada exitosamente'],200);
         //
     }
 
@@ -46,8 +52,14 @@ class UbicacionController extends Controller
      * @param  \App\Ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Ubicacion $ubicacion)
+    public function show($idubicacion)
     {
+        $ubicacion=Departamento::find($idubicacion);
+        if(!$ubicacion){
+            return response()->json(['mensaje'=>'Ubicacion no encontrada']);
+        }else{
+            return $ubicacion;
+        }
         //
     }
 
@@ -69,8 +81,12 @@ class UbicacionController extends Controller
      * @param  \App\Ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ubicacion $ubicacion)
+    public function update(Request $request, $idubicacion)
     {
+        $ubicacion = Ubicacion::find($idubicacion);
+        $ubicacion->direccion = $request->direccion;
+        $ubicacion->save();
+        return response()->json(['Mensaje'=>'Dirección modificada exitosamente'],200);
         //
     }
 

@@ -82,8 +82,12 @@ class AreaLaboralController extends Controller
      * @param  \App\AreaLaboral  $areaLaboral
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AreaLaboral $areaLaboral)
+    public function update(Request $request, $idareaLaboral)
     {
+        $areaLaboral = AreaLaboral::find($idareaLaboral);
+        $areaLaboral->area = $request->area;
+        $areaLaboral->save();
+        return response()->json(['Mensaje'=>'Area Laboral modificada exitosamente'],200);
         //
     }
 

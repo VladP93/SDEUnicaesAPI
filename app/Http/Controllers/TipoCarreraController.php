@@ -81,8 +81,12 @@ class TipoCarreraController extends Controller
      * @param  \App\TipoCarrera  $tipoCarrera
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TipoCarrera $tipoCarrera)
+    public function update(Request $request, $idtipoCarrera)
     {
+        $tipoCarrera = TipoCarrera::find($idtipocarrera);
+        $tipoCarrera->tipocarrera = $request->tipocarrera;
+        $tipoCarrera->save();
+        return response()->json(['Mensaje'=>'El tipo de la carrera ha sido modificado exitosamente'],200);
         //
     }
 

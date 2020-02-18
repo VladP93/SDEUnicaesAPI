@@ -732,7 +732,7 @@ INSERT INTO Cargo(cargo) VALUES('Aux de transporte');
 INSERT INTO Persona(dui,nit,nombre,apellido,telefono,direccion,correo,fechanacimiento,sexo,foto)
 VALUES('0000000-0','0000-000000-000-0','persona de','prueba','0000-0000','direcion de prueba','correo.prueba@catolica.edu.sv',NOW(),'X','url.fotoprueba.jgp');
 
-INSERT INTO Decano(dui,facultad) VALUES('0000000-0',4);
+INSERT INTO Decano(dui,facultad,activo) VALUES('0000000-0',4,1);
 
 INSERT INTO Usuario(dui,usuario,contrasena) VALUES('0000000-0', 'user', 'pass');
 

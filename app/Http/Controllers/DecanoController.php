@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Decano;
+use App\Persona;
 use Illuminate\Http\Request;
 
 class DecanoController extends Controller
@@ -18,7 +19,7 @@ class DecanoController extends Controller
         $decanos = \DB::table('Decano')
         ->join('Persona','Decano.dui','=','Persona.dui')
         ->join('Facultad','Decano.facultad','=','Facultad.idfacultad')
-        ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad')
+        ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad','Decano.activo')
         ->get();
         return $decanos;
     }
@@ -61,7 +62,7 @@ class DecanoController extends Controller
         $decanos = \DB::table('Decano')
         ->join('Persona','Decano.dui','=','Persona.dui')
         ->join('Facultad','Decano.facultad','=','Facultad.idfacultad')
-        ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad')
+        ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad','Decano.activo')
         ->where('Persona.dui',$decano)
         ->get();
         return $decanos;
@@ -86,8 +87,20 @@ class DecanoController extends Controller
      * @param  \App\Decano  $decano
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Decano $decano)
+    public function update(Request $request, $iddecano)
     {
+        $decano = Decano::find($iddecano);
+        $persona = Persona::find($iddecano);
+        $decano->dui = $request->dui;
+        $persona->dui = $request->dui;
+        $persona->nombre = $request->nombre;
+        $persona->apellido = $request->apellido;
+        $persona->correo = $request->correo;
+        $decano->facultad = $request->facultad;
+        $decano->activo = $request->activo;
+        $decano->save();
+        $persona->save();
+        return response()->json(['Mensaje'=>'Decano modificado exitosamente'],200);
         //
     }
 

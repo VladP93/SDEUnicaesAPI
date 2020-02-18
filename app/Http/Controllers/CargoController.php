@@ -81,8 +81,12 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cargo $cargo)
+    public function update(Request $request, $idcargo)
     {
+        $cargo = Cargo::find($idacargo);
+        $cargo->cargo = $request->cargo;
+        $cargo->save();
+        return response()->json(['Mensaje'=>'Cargo modificado exitosamente'],200);
         //
     }
 

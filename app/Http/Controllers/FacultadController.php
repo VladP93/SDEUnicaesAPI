@@ -81,8 +81,12 @@ class FacultadController extends Controller
      * @param  \App\Facultad  $facultad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Facultad $facultad)
+    public function update(Request $request, $idfacultad)
     {
+        $facultad = Facultad::find($idfacultad);
+        $facultad->facultad = $request->facultad;
+        $facultad->save();
+        return response()->json(['Mensaje'=>'Facultad modificada exitosamente'],200);
         //
     }
 

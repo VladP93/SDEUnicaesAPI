@@ -46,8 +46,14 @@ class DepartamentoController extends Controller
      * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function show(Departamento $departamento)
+    public function show($iddepartamento)
     {
+        $departamento=Departamento::find($iddepartamento);
+        if(!$departamento){
+            return response()->json(['mensaje'=>'Departamento no encontrado']);
+        }else{
+            return $departamento;
+        }
         //
     }
 

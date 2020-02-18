@@ -30,3 +30,4 @@ Route::resource('/decanos','DecanoController');
 Route::resource('/instituciones','InstitucionController');
 Route::resource('/tiposcarrera','TipoCarreraController');
 Route::resource('/perfil','PerfilController');
+Route::resource('/municipiosdep','DepartamentoMunicipioController');

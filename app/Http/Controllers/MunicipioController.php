@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Aptitud;
+use App\Municipio;
 use Illuminate\Http\Request;
 
-class AptitudController extends Controller
+class MunicipioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AptitudController extends Controller
      */
     public function index()
     {
-        $aptitudes = Aptitud::all();
-        return $aptitudes;
+        $municipio = Municipio::all();
+        return $municipio;
         //
     }
 
@@ -37,28 +37,22 @@ class AptitudController extends Controller
      */
     public function store(Request $request)
     {
-        $aptitud = new Aptitud;
-
-        $aptitud->aptitud = $request->aptitud;
-        $aptitud->save();
-        return response()->json(['Mensaje'=>'Aptitud agregada exitosamente'],200);
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Aptitud  $aptitud
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function show($aptitud)
+    public function show($idmunicipio)
     {
-        $aptitudes = Aptitud::find($aptitud);
-
-        if(!$aptitudes){
-            return response()->json(['mensaje'=>'Aptitud inexistente']);
+        $municipio=Municipio::find($idmunicipio);
+        if(!$municipio){
+            return response()->json(['mensaje'=>'Municipio no encontrado']);
         }else{
-            return $aptitudes;
+            return $municipio;
         }
         //
     }
@@ -66,10 +60,10 @@ class AptitudController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Aptitud  $aptitud
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Aptitud $aptitud)
+    public function edit(Municipio $municipio)
     {
         //
     }
@@ -78,25 +72,21 @@ class AptitudController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Aptitud  $aptitud
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idaptitud)
+    public function update(Request $request, Municipio $municipio)
     {
-        $aptitud = Aptitud::find($idaptitud);
-        $aptitud->aptitud = $request->aptitud;
-        $aptitud->save();
-        return response()->json(['Mensaje'=>'Aptitud modificada exitosamente'],200);
         //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Aptitud  $aptitud
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Aptitud $aptitud)
+    public function destroy(Municipio $municipio)
     {
         //
     }

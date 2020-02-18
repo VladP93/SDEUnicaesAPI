@@ -102,8 +102,12 @@ class CarrerasFacultadController extends Controller
      * @param  \App\CarreraFacultad  $carreraFacultad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CarreraFacultad $carreraFacultad)
+    public function update(Request $request, $idcarrera)
     {
+        $carrera = Carrera::find($idcarrera);
+        $carrera->carrera = $request->carrera;
+        $carrera->save();
+        return response()->json(['Mensaje'=>'Carrera modificada exitosamente'],200);
         //
     }
 

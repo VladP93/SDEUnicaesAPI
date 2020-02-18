@@ -92,8 +92,28 @@ class UsuarioController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, $idusuario)
     {
+        $usuario = Usuario::find($idusuario);
+        $persona = Persona::find($idusuario);
+
+        $persona->dui = $request->dui;
+        $persona->nit = $request->nit;
+        $persona->nombre = $request->nombre;
+        $persona->apellido = $request->apellido;
+        $persona->telefono = $request->telefono;
+        $persona->direccion = $request->direccion;
+        $persona->correo = $request->correo;
+        $persona->fechanacimiento = $request->fechanacimiento;
+        $persona->sexo = $request->sexo;
+        $persona->foto = $request->foto;
+        $persona->save();
+
+        $usuario->dui = $request->dui;
+        $usuario->usuario = $request->usuario;
+        $usuario->contrasena = $request->contrasena;
+        $usuario->save();
+        return response()->json(['Mensaje'=>'Usuario: '.$request->usuario.' modificado'],200);
         //
     }
 

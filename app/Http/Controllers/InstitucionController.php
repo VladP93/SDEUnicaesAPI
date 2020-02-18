@@ -94,8 +94,12 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Institucion $institucion)
+    public function update(Request $request, $idinstitucion)
     {
+        $institucion = Institucion::find($idinstitucion);
+        $institucion->nombre = $request->nombre;
+        $institucion->save();
+        return response()->json(['Mensaje'=>'Institucion modificada exitosamente'],200);
         //
     }
 

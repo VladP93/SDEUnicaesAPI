@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Carrera;
+use App\Municipio;
+use App\Departamento;
 use Illuminate\Http\Request;
 
-class CarreraController extends Controller
+class DepartamentoMunicipioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,12 @@ class CarreraController extends Controller
      */
     public function index()
     {
+        $municipios = \DB::table('Municipio')
+        ->join('Departamento','Departamento.iddepartamento','=','Municipio.iddepartamento')
+        ->select('Municipio.idmunicipio','Municipio.municipio','Departamento.departamento')
+        ->get();
+        return $municipios;
         //
-        $carreras = Carrera::all();
-        return $carreras;
     }
 
     /**
@@ -43,29 +47,27 @@ class CarreraController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Carrera  $carrera
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function show($carrera)
+    public function show($iddepartamento)
     {
-        $carreras = Carrera::find($carrera);
-
-        if(!$carreras){
-            return response()->json(['mensaje'=>'Carrera inexistente']);
-        }else{
-            return $carreras;
-        }
-        //
+        $municipios = \DB::table('Municipio')
+        ->join('Departamento','Departamento.iddepartamento','=','Municipio.iddepartamento')
+        ->select('Municipio.idmunicipio','Municipio.municipio','Departamento.departamento')
+        ->where('Municipio.iddepartamento','=',$iddepartamento)
+        ->get();
+        return $municipios;
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Carrera  $carrera
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Carrera $carrera)
+    public function edit(Municipio $municipio)
     {
         //
     }
@@ -74,10 +76,10 @@ class CarreraController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Carrera  $carrera
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Carrera $carrera)
+    public function update(Request $request, Municipio $municipio)
     {
         //
     }
@@ -85,10 +87,10 @@ class CarreraController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Carrera  $carrera
+     * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Carrera $carrera)
+    public function destroy(Municipio $municipio)
     {
         //
     }
