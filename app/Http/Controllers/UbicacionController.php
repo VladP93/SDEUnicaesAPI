@@ -96,8 +96,11 @@ class UbicacionController extends Controller
      * @param  \App\Ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ubicacion $ubicacion)
+    public function destroy($idubicacion)
     {
+        $ubicacion = Aptitud::find($idubicacion);
+        $ubicacion->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

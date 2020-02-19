@@ -96,8 +96,11 @@ class TipoCarreraController extends Controller
      * @param  \App\TipoCarrera  $tipoCarrera
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TipoCarrera $tipoCarrera)
+    public function destroy($idtipoCarrera)
     {
+        $tipoCarrera = TipoCarrera::find($idtipoCarrera);
+        $tipoCarrera->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

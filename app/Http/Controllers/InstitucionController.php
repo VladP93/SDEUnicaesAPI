@@ -109,8 +109,11 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Institucion $institucion)
+    public function destroy($idinstitucion)
     {
+        $institucion = Institucion::find($idinstitucion);
+        $institucion->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

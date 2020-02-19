@@ -88,6 +88,7 @@ class DepartamentoController extends Controller
      */
     public function destroy(Departamento $departamento)
     {
+        return response()->json(['Mensaje'=>'No se pueden eliminar elementos de esta tabla'],200);
         //
     }
 }

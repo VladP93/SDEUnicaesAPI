@@ -96,8 +96,11 @@ class FacultadController extends Controller
      * @param  \App\Facultad  $facultad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Facultad $facultad)
+    public function destroy($idfacultad)
     {
+        $facultad = Facultad::find($idfacultad);
+        $facultad->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

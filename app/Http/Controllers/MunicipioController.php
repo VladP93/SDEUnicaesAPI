@@ -88,6 +88,7 @@ class MunicipioController extends Controller
      */
     public function destroy(Municipio $municipio)
     {
+        return response()->json(['Mensaje'=>'No se puede eliminar elementos de esta tabla'],200);
         //
     }
 }

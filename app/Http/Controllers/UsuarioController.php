@@ -123,8 +123,11 @@ class UsuarioController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy($idusuario)
     {
+        $usuario = Usuario::find($idusuario);
+        $usuario->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

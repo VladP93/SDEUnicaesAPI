@@ -97,8 +97,11 @@ class AreaLaboralController extends Controller
      * @param  \App\AreaLaboral  $areaLaboral
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AreaLaboral $areaLaboral)
+    public function destroy($idareaLaboral)
     {
+        $areaLaboral = AreaLaboral::find($idareaLaboral);
+        $areaLaboral->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

@@ -96,8 +96,11 @@ class CargoController extends Controller
      * @param  \App\Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cargo $cargo)
+    public function destroy($idcargo)
     {
+        $cargo = Cargo::find($idacargo);
+        $cargo->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

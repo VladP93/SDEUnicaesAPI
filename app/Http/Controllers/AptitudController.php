@@ -96,8 +96,11 @@ class AptitudController extends Controller
      * @param  \App\Aptitud  $aptitud
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Aptitud $aptitud)
+    public function destroy($idaptitud)
     {
+        $aptitud = Aptitud::find($idaptitud);
+        $aptitud->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

@@ -110,8 +110,11 @@ class DecanoController extends Controller
      * @param  \App\Decano  $decano
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Decano $decano)
+    public function destroy($iddecano)
     {
+        $decano = Decano::find($iddecano);
+        $decano->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }

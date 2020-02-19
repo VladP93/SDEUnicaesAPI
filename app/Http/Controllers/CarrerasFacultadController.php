@@ -117,8 +117,11 @@ class CarrerasFacultadController extends Controller
      * @param  \App\CarreraFacultad  $carreraFacultad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CarreraFacultad $carreraFacultad)
+    public function destroy($idcarrera)
     {
+        $carrera = Carrera::find($idcarrera);
+        $carrera->delete();
+        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         //
     }
 }
