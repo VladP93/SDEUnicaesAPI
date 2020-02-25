@@ -31,3 +31,7 @@ Route::resource('/instituciones','InstitucionController');
 Route::resource('/tiposcarrera','TipoCarreraController');
 Route::resource('/perfil','PerfilController');
 Route::resource('/municipiosdep','DepartamentoMunicipioController');
+Route::resource('/carrerasegresado','CarreraEgresadoController');
+Route::resource('/diplomasegresado','DiplomaEgresadoController');
+Route::resource('/aptitudesegresado','AptitudEgresadoController');
+Route::resource('/experiencialaboral','ExperienciaLaboralController');
