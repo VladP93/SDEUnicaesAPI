@@ -16,8 +16,9 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        $usuario=Usuario::all();
-        return $usuario;
+        #$usuario=Usuario::all();
+        #return $usuario;
+        return response()->json(['Mensaje'=>'Registro de usuarios'],200);
     }
 
     /**

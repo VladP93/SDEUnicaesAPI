@@ -35,3 +35,4 @@ Route::resource('/carrerasegresado','CarreraEgresadoController');
 Route::resource('/diplomasegresado','DiplomaEgresadoController');
 Route::resource('/aptitudesegresado','AptitudEgresadoController');
 Route::resource('/experiencialaboral','ExperienciaLaboralController');
+Route::resource('/login','LogInController');
