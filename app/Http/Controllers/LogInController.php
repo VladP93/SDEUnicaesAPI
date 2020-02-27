@@ -44,7 +44,7 @@ class LogInController extends Controller
         if(!empty($usuario)){
             return response()->json([true],200);
         }else{
-            return response()->json([],204);
+            return response()->json([false],200);
         }
         //
     }

@@ -4,7 +4,7 @@ CREATE DATABASE sdeunicaes;
 USE sdeunicaes;
 
 CREATE TABLE Persona(
-    dui VARCHAR(9) NOT NULL PRIMARY KEY,
+    dui VARCHAR(10) NOT NULL PRIMARY KEY,
     nit VARCHAR(17) NOT NULL UNIQUE,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
@@ -17,24 +17,24 @@ CREATE TABLE Persona(
 );
 
 CREATE TABLE Usuario(
-    dui VARCHAR(9) NOT NULL PRIMARY KEY,
+    dui VARCHAR(10) NOT NULL PRIMARY KEY,
     usuario VARCHAR(10) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
     FOREIGN KEY(dui) REFERENCES Persona(dui)
 );
 
 CREATE TABLE Emisor(
-    dui VARCHAR(9) NOT NULL PRIMARY KEY,
+    dui VARCHAR(10) NOT NULL PRIMARY KEY,
     FOREIGN KEY(dui) REFERENCES Persona(dui)    
 );
 
 CREATE TABLE Receptor(
-    dui VARCHAR(9) NOT NULL PRIMARY KEY,
+    dui VARCHAR(10) NOT NULL PRIMARY KEY,
     FOREIGN KEY(dui) REFERENCES Persona(dui)
 );
 
 CREATE TABLE Egresado(
-    dui VARCHAR(9) NOT NULL PRIMARY KEY,
+    dui VARCHAR(10) NOT NULL PRIMARY KEY,
     carnet VARCHAR(11) NOT NULL UNIQUE,
     FOREIGN KEY(dui) REFERENCES Persona(dui)
 );
@@ -46,7 +46,7 @@ CREATE TABLE Aptitud(
 
 CREATE TABLE AptitudEgresado(
     idaptitud INT NOT NULL AUTO_INCREMENT,
-    dui VARCHAR(9) NOT NULL,
+    dui VARCHAR(10) NOT NULL,
     PRIMARY KEY(idaptitud, dui),
     FOREIGN KEY(idaptitud) REFERENCES Aptitud(idaptitud),
     FOREIGN KEY(dui) REFERENCES Egresado(dui)
@@ -54,8 +54,8 @@ CREATE TABLE AptitudEgresado(
 
 CREATE TABLE Mensaje(
     idmensaje INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    emisor VARCHAR(9) NOT NULL,
-    receptor VARCHAR(9) NOT NULL,
+    emisor VARCHAR(10) NOT NULL,
+    receptor VARCHAR(10) NOT NULL,
     asunto VARCHAR(30) NOT NULL,
     mensaje VARCHAR(255) NOT NULL,
     FOREIGN KEY(emisor) REFERENCES Emisor(dui),
@@ -88,7 +88,7 @@ CREATE TABLE Carrera(
 );
 
 CREATE TABLE CarreraEgresado(
-    dui VARCHAR(9) NOT NULL,
+    dui VARCHAR(10) NOT NULL,
     idcarrera INT NOT NULL,
     PRIMARY KEY(dui, idcarrera),
     FOREIGN KEY(dui) REFERENCES Egresado(dui),
@@ -130,7 +130,7 @@ CREATE TABLE CarreraFacultad(
 );
 
 CREATE TABLE Decano(
-    dui VARCHAR(9) NOT NULL PRIMARY KEY,
+    dui VARCHAR(10) NOT NULL PRIMARY KEY,
     facultad INT NOT NULL,
     activo CHAR(1) NOT NULL,
     FOREIGN KEY(facultad) REFERENCES Facultad(idfacultad)
@@ -156,7 +156,7 @@ CREATE TABLE Institucion(
 
 CREATE TABLE ExperienciaLaboral(
     idexperiencia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    egresado VARCHAR(9) NOT NULL,
+    egresado VARCHAR(10) NOT NULL,
     institucion INT NOT NULL,
     cargo INT NOT NULL,
     arealaboral INT NOT NULL,
@@ -177,7 +177,7 @@ CREATE TABLE DiplomaCertificacion(
 );
 
 CREATE TABLE DiplomaCertificacionEgresado(
-    dui VARCHAR(9) NOT NULL,
+    dui VARCHAR(10) NOT NULL,
     diplomacertificacion INT NOT NULL,
     fecha DATE NOT NULL,
     foto VARCHAR(255) NOT NULL,
