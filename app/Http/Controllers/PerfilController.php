@@ -28,10 +28,10 @@ class PerfilController extends Controller
         //->join('Institucion','ExperienciaLaboral.institucion','=','Institucion.idinstitucion')
         //->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
         //->join('AreaLaboral','ExperienciaLaboral.arealaboral','=','AreaLaboral.idarea')
-        ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
-        'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
-        'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
-#        -with('Aptitud');
+        //->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
+        //'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
+        //'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+#       // -with('Aptitud');
         ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono')
         ->get();
 
