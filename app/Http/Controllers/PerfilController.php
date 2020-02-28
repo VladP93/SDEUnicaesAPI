@@ -31,7 +31,7 @@ class PerfilController extends Controller
         //->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
         //'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
         //'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
-#       // -with('Aptitud');
+        // -with('Aptitud');
         ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono')
         ->get();
 
