@@ -46,6 +46,7 @@ class DecanoController extends Controller
 
         $decano->dui = $request->dui;
         $decano->facultad = $request->facultad;
+        $decano->activo = 1;
         $decano->save();
         return response()->json(['Mensaje'=>'Decano registrado exitosamente'],200);
         //

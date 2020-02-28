@@ -18,20 +18,21 @@ class PerfilController extends Controller
         //
         $egresado = \DB::table('Egresado')
         ->join('Persona','Egresado.dui','=','Persona.dui')
-        ->join('CarreraEgresado','Egresado.dui','=','CarreraEgresado.dui')
-        ->join('Carrera','CarreraEgresado.idcarrera','=','Carrera.idcarrera')
-        ->join('DiplomaCertificacionEgresado','Egresado.dui','=','DiplomaCertificacionEgresado.dui')
-        ->join('DiplomaCertificacion','DiplomaCertificacionEgresado.diplomacertificacion','=','DiplomaCertificacion.iddiplomadocertificacion')
-        ->join('AptitudEgresado','Egresado.dui','=','AptitudEgresado.dui')
-        ->join('Aptitud','AptitudEgresado.idaptitud','=','Aptitud.idaptitud')
-        ->join('ExperienciaLaboral','Egresado.dui','=','ExperienciaLaboral.egresado')
-        ->join('Institucion','ExperienciaLaboral.institucion','=','Institucion.idinstitucion')
-        ->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
-        ->join('AreaLaboral','ExperienciaLaboral.arealaboral','=','AreaLaboral.idarea')
+        //->join('CarreraEgresado','Egresado.dui','=','CarreraEgresado.dui')
+        //->join('Carrera','CarreraEgresado.idcarrera','=','Carrera.idcarrera')
+        //->join('DiplomaCertificacionEgresado','Egresado.dui','=','DiplomaCertificacionEgresado.dui')
+        //->join('DiplomaCertificacion','DiplomaCertificacionEgresado.diplomacertificacion','=','DiplomaCertificacion.iddiplomadocertificacion')
+        //->join('AptitudEgresado','Egresado.dui','=','AptitudEgresado.dui')
+        //->join('Aptitud','AptitudEgresado.idaptitud','=','Aptitud.idaptitud')
+        //->join('ExperienciaLaboral','Egresado.dui','=','ExperienciaLaboral.egresado')
+        //->join('Institucion','ExperienciaLaboral.institucion','=','Institucion.idinstitucion')
+        //->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
+        //->join('AreaLaboral','ExperienciaLaboral.arealaboral','=','AreaLaboral.idarea')
         ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
         'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
         'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
 #        -with('Aptitud');
+        ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono')
         ->get();
 
         return $egresado;
@@ -78,19 +79,20 @@ class PerfilController extends Controller
     {
         $egresado = \DB::table('Egresado')
         ->join('Persona','Egresado.dui','=','Persona.dui')
-        ->join('CarreraEgresado','Egresado.dui','=','CarreraEgresado.dui')
-        ->join('Carrera','CarreraEgresado.idcarrera','=','Carrera.idcarrera')
-        ->join('DiplomaCertificacionEgresado','Egresado.dui','=','DiplomaCertificacionEgresado.dui')
-        ->join('DiplomaCertificacion','DiplomaCertificacionEgresado.diplomacertificacion','=','DiplomaCertificacion.iddiplomadocertificacion')
-        ->join('AptitudEgresado','Egresado.dui','=','AptitudEgresado.dui')
-        ->join('Aptitud','AptitudEgresado.idaptitud','=','Aptitud.idaptitud')
-        ->join('ExperienciaLaboral','Egresado.dui','=','ExperienciaLaboral.egresado')
-        ->join('Institucion','ExperienciaLaboral.institucion','=','Institucion.idinstitucion')
-        ->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
-        ->join('AreaLaboral','ExperienciaLaboral.arealaboral','=','AreaLaboral.idarea')
-        ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
-        'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
-        'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+        //->join('CarreraEgresado','Egresado.dui','=','CarreraEgresado.dui')
+        //->join('Carrera','CarreraEgresado.idcarrera','=','Carrera.idcarrera')
+        //->join('DiplomaCertificacionEgresado','Egresado.dui','=','DiplomaCertificacionEgresado.dui')
+        //->join('DiplomaCertificacion','DiplomaCertificacionEgresado.diplomacertificacion','=','DiplomaCertificacion.iddiplomadocertificacion')
+        //->join('AptitudEgresado','Egresado.dui','=','AptitudEgresado.dui')
+        //->join('Aptitud','AptitudEgresado.idaptitud','=','Aptitud.idaptitud')
+        //->join('ExperienciaLaboral','Egresado.dui','=','ExperienciaLaboral.egresado')
+        //->join('Institucion','ExperienciaLaboral.institucion','=','Institucion.idinstitucion')
+        //->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
+        //->join('AreaLaboral','ExperienciaLaboral.arealaboral','=','AreaLaboral.idarea')
+        //->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono',
+        //'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
+        //'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+        ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono')
         ->where('Egresado.dui',$egresado)
         ->get();
 
