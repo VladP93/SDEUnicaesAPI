@@ -15,8 +15,20 @@ class UbicacionController extends Controller
     public function index()
     {
         //
-        $ubicacion=Ubicacion::all();
-        return $ubicacion;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $ubicacion=Ubicacion::all();
+            return $ubicacion;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
     }
 
     /**
@@ -37,12 +49,24 @@ class UbicacionController extends Controller
      */
     public function store(Request $request)
     {
-        $ubicacion = new Ubicacion;
-
-        $ubicacion->idmunicipio = $request->idmunicipio;
-        $ubicacion->direccion = $request->direccion;
-        $ubicacion->save();
-        return response()->json(['Mensaje'=>'Ubicacion agregada exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $ubicacion = new Ubicacion;
+    
+            $ubicacion->idmunicipio = $request->idmunicipio;
+            $ubicacion->direccion = $request->direccion;
+            $ubicacion->save();
+            return response()->json(['Mensaje'=>'Ubicacion agregada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -54,11 +78,23 @@ class UbicacionController extends Controller
      */
     public function show($idubicacion)
     {
-        $ubicacion=Departamento::find($idubicacion);
-        if(!$ubicacion){
-            return response()->json(['mensaje'=>'Ubicacion no encontrada']);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $ubicacion=Departamento::find($idubicacion);
+            if(!$ubicacion){
+                return response()->json(['mensaje'=>'Ubicacion no encontrada']);
+            }else{
+                return $ubicacion;
+            }
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
         }else{
-            return $ubicacion;
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
         }
         //
     }
@@ -83,10 +119,22 @@ class UbicacionController extends Controller
      */
     public function update(Request $request, $idubicacion)
     {
-        $ubicacion = Ubicacion::find($idubicacion);
-        $ubicacion->direccion = $request->direccion;
-        $ubicacion->save();
-        return response()->json(['Mensaje'=>'Dirección modificada exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $ubicacion = Ubicacion::find($idubicacion);
+            $ubicacion->direccion = $request->direccion;
+            $ubicacion->save();
+            return response()->json(['Mensaje'=>'Dirección modificada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -98,9 +146,21 @@ class UbicacionController extends Controller
      */
     public function destroy($idubicacion)
     {
-        $ubicacion = Aptitud::find($idubicacion);
-        $ubicacion->delete();
-        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $ubicacion = Aptitud::find($idubicacion);
+            $ubicacion->delete();
+            return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 }

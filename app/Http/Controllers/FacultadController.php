@@ -17,9 +17,20 @@ class FacultadController extends Controller
 #        $facultad=Facultad::with('Ubicacion')->get();
 #        return $facultad;
         //
-
-        $facultad = Facultad::all();
-        return $facultad;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $facultad = Facultad::all();
+            return $facultad;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje' =>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
 
     }
 
@@ -41,12 +52,24 @@ class FacultadController extends Controller
      */
     public function store(Request $request)
     {
-        $facultad = new Facultad;
-
-        $facultad->facultad = $request->facultad;
-        $facultad->idubicacion = 1;
-        $facultad->save();
-        return response()->json(['Mensaje'=>'Facultad agregada exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $facultad = new Facultad;
+    
+            $facultad->facultad = $request->facultad;
+            $facultad->idubicacion = 1;
+            $facultad->save();
+            return response()->json(['Mensaje'=>'Facultad agregada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje' =>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -58,8 +81,20 @@ class FacultadController extends Controller
      */
     public function show($facultad)
     {
-        $facultad = Facultad::find($facultad);
-        return $facultad;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $facultad = Facultad::find($facultad);
+            return $facultad;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje' =>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -83,10 +118,22 @@ class FacultadController extends Controller
      */
     public function update(Request $request, $idfacultad)
     {
-        $facultad = Facultad::find($idfacultad);
-        $facultad->facultad = $request->facultad;
-        $facultad->save();
-        return response()->json(['Mensaje'=>'Facultad modificada exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $facultad = Facultad::find($idfacultad);
+            $facultad->facultad = $request->facultad;
+            $facultad->save();
+            return response()->json(['Mensaje'=>'Facultad modificada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje' =>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -98,9 +145,21 @@ class FacultadController extends Controller
      */
     public function destroy($idfacultad)
     {
-        $facultad = Facultad::find($idfacultad);
-        $facultad->delete();
-        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $facultad = Facultad::find($idfacultad);
+            $facultad->delete();
+            return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje' =>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 }

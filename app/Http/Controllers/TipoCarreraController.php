@@ -15,8 +15,20 @@ class TipoCarreraController extends Controller
     public function index()
     {
         //
-        $tiposcarrera = TipoCarrera::all();
-        return $tiposcarrera;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $tiposcarrera = TipoCarrera::all();
+            return $tiposcarrera;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
     }
 
     /**
@@ -37,12 +49,24 @@ class TipoCarreraController extends Controller
      */
     public function store(Request $request)
     {
-        $tipoCarrera = new TipoCarrera;
-
-        $tipoCarrera->tipocarrera = $request->tipocarrera;
-        $tipoCarrera->save();
-
-        return response()->json(['Mensaje'=>'Tipo de carrera agregado exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $tipoCarrera = new TipoCarrera;
+    
+            $tipoCarrera->tipocarrera = $request->tipocarrera;
+            $tipoCarrera->save();
+    
+            return response()->json(['Mensaje'=>'Tipo de carrera agregado exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -54,11 +78,23 @@ class TipoCarreraController extends Controller
      */
     public function show($tipoCarrera)
     {
-        $tiposcarrera = TipoCarrera::find($tipoCarrera);
-        if(!$tiposcarrera){
-            return response()->json(['mensaje'=>'Tipo de carrera no definido']);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $tiposcarrera = TipoCarrera::find($tipoCarrera);
+            if(!$tiposcarrera){
+                return response()->json(['mensaje'=>'Tipo de carrera no definido']);
+            }else{
+                return $tiposcarrera;
+            }
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
         }else{
-            return $tiposcarrera;
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
         }
         //
     }
@@ -83,10 +119,22 @@ class TipoCarreraController extends Controller
      */
     public function update(Request $request, $idtipoCarrera)
     {
-        $tipoCarrera = TipoCarrera::find($idtipocarrera);
-        $tipoCarrera->tipocarrera = $request->tipocarrera;
-        $tipoCarrera->save();
-        return response()->json(['Mensaje'=>'El tipo de la carrera ha sido modificado exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $tipoCarrera = TipoCarrera::find($idtipocarrera);
+            $tipoCarrera->tipocarrera = $request->tipocarrera;
+            $tipoCarrera->save();
+            return response()->json(['Mensaje'=>'El tipo de la carrera ha sido modificado exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -98,9 +146,21 @@ class TipoCarreraController extends Controller
      */
     public function destroy($idtipoCarrera)
     {
-        $tipoCarrera = TipoCarrera::find($idtipoCarrera);
-        $tipoCarrera->delete();
-        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $tipoCarrera = TipoCarrera::find($idtipoCarrera);
+            $tipoCarrera->delete();
+            return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 }

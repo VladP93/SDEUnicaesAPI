@@ -15,13 +15,25 @@ class InstitucionController extends Controller
      */
     public function index()
     {
-        $instituciones = \DB::table('Institucion')
-        ->join('Ubicacion','Institucion.ubicacion','=','Ubicacion.idubicacion')
-        ->join('Municipio','Ubicacion.idmunicipio','=','Municipio.idmunicipio')
-        ->join('Departamento','Municipio.iddepartamento','=','Departamento.iddepartamento')
-        ->select('idinstitucion','Institucion.nombre','Ubicacion.direccion','Departamento.departamento','Municipio.municipio')
-        ->get();
-        return $instituciones;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $instituciones = \DB::table('Institucion')
+            ->join('Ubicacion','Institucion.ubicacion','=','Ubicacion.idubicacion')
+            ->join('Municipio','Ubicacion.idmunicipio','=','Municipio.idmunicipio')
+            ->join('Departamento','Municipio.iddepartamento','=','Departamento.iddepartamento')
+            ->select('idinstitucion','Institucion.nombre','Ubicacion.direccion','Departamento.departamento','Municipio.municipio')
+            ->get();
+            return $instituciones;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -43,17 +55,29 @@ class InstitucionController extends Controller
      */
     public function store(Request $request)
     {
-        $institucion = new Institucion;
-        $ubicacion = new Ubicacion;
-
-        $ubicacion->direccion = $request->direccion;
-        $ubicacion->idmunicipio = $request->idmunicipio;
-        $ubicacion->save();
-        $institucion->nombre = $request->nombre;
-        $institucion->ubicacion = \DB::table('Ubicacion')->latest('idubicacion')->first()->idubicacion;
-        $institucion->telefono = $request->telefono;
-        $institucion->save();
-        return response()->json(['Mensaje'=>'Institución agregada exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $institucion = new Institucion;
+            $ubicacion = new Ubicacion;
+    
+            $ubicacion->direccion = $request->direccion;
+            $ubicacion->idmunicipio = $request->idmunicipio;
+            $ubicacion->save();
+            $institucion->nombre = $request->nombre;
+            $institucion->ubicacion = \DB::table('Ubicacion')->latest('idubicacion')->first()->idubicacion;
+            $institucion->telefono = $request->telefono;
+            $institucion->save();
+            return response()->json(['Mensaje'=>'Institución agregada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -65,14 +89,26 @@ class InstitucionController extends Controller
      */
     public function show($institucion)
     {
-        $instituciones = \DB::table('Institucion')
-        ->join('Ubicacion','Institucion.ubicacion','=','Ubicacion.idubicacion')
-        ->join('Municipio','Ubicacion.idmunicipio','=','Municipio.idmunicipio')
-        ->join('Departamento','Municipio.iddepartamento','=','Departamento.iddepartamento')
-        ->select('idinstitucion','Institucion.nombre','Ubicacion.direccion','Departamento.departamento','Municipio.municipio')
-        ->where('Institucion.idinstitucion',$institucion)
-        ->get();
-        return $instituciones;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $instituciones = \DB::table('Institucion')
+            ->join('Ubicacion','Institucion.ubicacion','=','Ubicacion.idubicacion')
+            ->join('Municipio','Ubicacion.idmunicipio','=','Municipio.idmunicipio')
+            ->join('Departamento','Municipio.iddepartamento','=','Departamento.iddepartamento')
+            ->select('idinstitucion','Institucion.nombre','Ubicacion.direccion','Departamento.departamento','Municipio.municipio')
+            ->where('Institucion.idinstitucion',$institucion)
+            ->get();
+            return $instituciones;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -96,10 +132,22 @@ class InstitucionController extends Controller
      */
     public function update(Request $request, $idinstitucion)
     {
-        $institucion = Institucion::find($idinstitucion);
-        $institucion->nombre = $request->nombre;
-        $institucion->save();
-        return response()->json(['Mensaje'=>'Institucion modificada exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $institucion = Institucion::find($idinstitucion);
+            $institucion->nombre = $request->nombre;
+            $institucion->save();
+            return response()->json(['Mensaje'=>'Institucion modificada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -111,9 +159,21 @@ class InstitucionController extends Controller
      */
     public function destroy($idinstitucion)
     {
-        $institucion = Institucion::find($idinstitucion);
-        $institucion->delete();
-        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $institucion = Institucion::find($idinstitucion);
+            $institucion->delete();
+            return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 }

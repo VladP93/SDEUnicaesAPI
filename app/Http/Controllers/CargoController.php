@@ -15,8 +15,20 @@ class CargoController extends Controller
     public function index()
     {
         //
-        $cargos = Cargo::all();
-        return $cargos;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $cargos = Cargo::all();
+            return $cargos;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
     }
 
     /**
@@ -37,11 +49,23 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
-        $cargo = new Cargo;
-
-        $cargo->cargo = $request->cargo;
-        $cargo->save();
-        return response()->json(['Mensaje'=>'Cargo agregado exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $cargo = new Cargo;
+    
+            $cargo->cargo = $request->cargo;
+            $cargo->save();
+            return response()->json(['Mensaje'=>'Cargo agregado exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -53,12 +77,24 @@ class CargoController extends Controller
      */
     public function show($cargo)
     {
-        $cargos = Cargo::find($cargo);
-
-        if(!$cargos){
-            return response()->json(['mensaje'=>'Cargo no existe']);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $cargos = Cargo::find($cargo);
+    
+            if(!$cargos){
+                return response()->json(['mensaje'=>'Cargo no existe']);
+            }else{
+                return $cargos;
+            }
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'No autorizado'],401);
         }else{
-            return $cargos;
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
         }
         //
     }
@@ -83,10 +119,22 @@ class CargoController extends Controller
      */
     public function update(Request $request, $idcargo)
     {
-        $cargo = Cargo::find($idacargo);
-        $cargo->cargo = $request->cargo;
-        $cargo->save();
-        return response()->json(['Mensaje'=>'Cargo modificado exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $cargo = Cargo::find($idacargo);
+            $cargo->cargo = $request->cargo;
+            $cargo->save();
+            return response()->json(['Mensaje'=>'Cargo modificado exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -98,9 +146,21 @@ class CargoController extends Controller
      */
     public function destroy($idcargo)
     {
-        $cargo = Cargo::find($idacargo);
-        $cargo->delete();
-        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $cargo = Cargo::find($idacargo);
+            $cargo->delete();
+            return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 }

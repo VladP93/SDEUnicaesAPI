@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Aptitud;
+use App\Http\Controllers\SesionController;
 use Illuminate\Http\Request;
 
 class AptitudController extends Controller
@@ -14,8 +15,18 @@ class AptitudController extends Controller
      */
     public function index()
     {
-        $aptitudes = Aptitud::all();
-        return $aptitudes;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            $aptitudes = Aptitud::all();
+            return $aptitudes;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
+        
         //
     }
 
@@ -37,11 +48,21 @@ class AptitudController extends Controller
      */
     public function store(Request $request)
     {
-        $aptitud = new Aptitud;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            $aptitud = new Aptitud;
 
-        $aptitud->aptitud = $request->aptitud;
-        $aptitud->save();
-        return response()->json(['Mensaje'=>'Aptitud agregada exitosamente'],200);
+            $aptitud->aptitud = $request->aptitud;
+            $aptitud->save();
+            return response()->json(['Mensaje'=>'Aptitud agregada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
+        
         //
     }
 
@@ -53,13 +74,23 @@ class AptitudController extends Controller
      */
     public function show($aptitud)
     {
-        $aptitudes = Aptitud::find($aptitud);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            $aptitudes = Aptitud::find($aptitud);
 
-        if(!$aptitudes){
-            return response()->json(['mensaje'=>'Aptitud inexistente']);
+            if(!$aptitudes){
+                return response()->json(['mensaje'=>'Aptitud inexistente'],200);
+            }else{
+                return $aptitudes;
+            }
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            return response()->json(['Mensaje'=>'No autorizado'],401);
         }else{
-            return $aptitudes;
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
         }
+        
         //
     }
 
@@ -83,10 +114,20 @@ class AptitudController extends Controller
      */
     public function update(Request $request,$idaptitud)
     {
-        $aptitud = Aptitud::find($idaptitud);
-        $aptitud->aptitud = $request->aptitud;
-        $aptitud->save();
-        return response()->json(['Mensaje'=>'Aptitud modificada exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            $aptitud = Aptitud::find($idaptitud);
+            $aptitud->aptitud = $request->aptitud;
+            $aptitud->save();
+            return response()->json(['Mensaje'=>'Aptitud modificada exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
+        
         //
     }
 
@@ -98,9 +139,19 @@ class AptitudController extends Controller
      */
     public function destroy($idaptitud)
     {
-        $aptitud = Aptitud::find($idaptitud);
-        $aptitud->delete();
-        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            $aptitud = Aptitud::find($idaptitud);
+            $aptitud->delete();
+            return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            return response()->json(['Mensaje'=>'No autorizado'],401);
+        }else{
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
+        
         //
     }
 }

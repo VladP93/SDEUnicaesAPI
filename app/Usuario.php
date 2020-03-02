@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $dui
  * @property string $usuario
  * @property string $contrasena
+ * @property int $tipoUsuario
  * @property Persona $persona
+ * @property Tipousuario $tipousuario
  */
 class Usuario extends Model
 {
-    public $timestamps = false;
     /**
      * The table associated with the model.
      * 
@@ -44,7 +45,7 @@ class Usuario extends Model
     /**
      * @var array
      */
-    protected $fillable = ['usuario', 'contrasena'];
+    protected $fillable = ['usuario', 'contrasena', 'tipoUsuario'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -52,5 +53,13 @@ class Usuario extends Model
     public function persona()
     {
         return $this->belongsTo('App\Persona', 'dui', 'dui');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tipousuario()
+    {
+        return $this->belongsTo('App\Tipousuario', 'tipoUsuario', 'idTipoUsuario');
     }
 }

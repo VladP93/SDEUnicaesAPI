@@ -16,12 +16,24 @@ class DecanoController extends Controller
     public function index()
     {
         //
-        $decanos = \DB::table('Decano')
-        ->join('Persona','Decano.dui','=','Persona.dui')
-        ->join('Facultad','Decano.facultad','=','Facultad.idfacultad')
-        ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad','Decano.activo')
-        ->get();
-        return $decanos;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $decanos = \DB::table('Decano')
+            ->join('Persona','Decano.dui','=','Persona.dui')
+            ->join('Facultad','Decano.facultad','=','Facultad.idfacultad')
+            ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad','Decano.activo')
+            ->get();
+            return $decanos;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],403);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
     }
 
     /**
@@ -42,13 +54,25 @@ class DecanoController extends Controller
      */
     public function store(Request $request)
     {
-        $decano = new Decano;
-
-        $decano->dui = $request->dui;
-        $decano->facultad = $request->facultad;
-        $decano->activo = 1;
-        $decano->save();
-        return response()->json(['Mensaje'=>'Decano registrado exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $decano = new Decano;
+    
+            $decano->dui = $request->dui;
+            $decano->facultad = $request->facultad;
+            $decano->activo = 1;
+            $decano->save();
+            return response()->json(['Mensaje'=>'Decano registrado exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],403);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -60,13 +84,25 @@ class DecanoController extends Controller
      */
     public function show($decano)
     {
-        $decanos = \DB::table('Decano')
-        ->join('Persona','Decano.dui','=','Persona.dui')
-        ->join('Facultad','Decano.facultad','=','Facultad.idfacultad')
-        ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad','Decano.activo')
-        ->where('Persona.dui',$decano)
-        ->get();
-        return $decanos;
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $decanos = \DB::table('Decano')
+            ->join('Persona','Decano.dui','=','Persona.dui')
+            ->join('Facultad','Decano.facultad','=','Facultad.idfacultad')
+            ->select('Persona.dui','Persona.nombre','Persona.apellido','Persona.correo','Facultad.facultad','Decano.activo')
+            ->where('Persona.dui',$decano)
+            ->get();
+            return $decanos;
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],403);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -90,18 +126,30 @@ class DecanoController extends Controller
      */
     public function update(Request $request, $iddecano)
     {
-        $decano = Decano::find($iddecano);
-        $persona = Persona::find($iddecano);
-        $decano->dui = $request->dui;
-        $persona->dui = $request->dui;
-        $persona->nombre = $request->nombre;
-        $persona->apellido = $request->apellido;
-        $persona->correo = $request->correo;
-        $decano->facultad = $request->facultad;
-        $decano->activo = $request->activo;
-        $decano->save();
-        $persona->save();
-        return response()->json(['Mensaje'=>'Decano modificado exitosamente'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $decano = Decano::find($iddecano);
+            $persona = Persona::find($iddecano);
+            $decano->dui = $request->dui;
+            $persona->dui = $request->dui;
+            $persona->nombre = $request->nombre;
+            $persona->apellido = $request->apellido;
+            $persona->correo = $request->correo;
+            $decano->facultad = $request->facultad;
+            $decano->activo = $request->activo;
+            $decano->save();
+            $persona->save();
+            return response()->json(['Mensaje'=>'Decano modificado exitosamente'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],403);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 
@@ -113,9 +161,21 @@ class DecanoController extends Controller
      */
     public function destroy($iddecano)
     {
-        $decano = Decano::find($iddecano);
-        $decano->delete();
-        return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador'){
+            #Acciones de Admin
+            $decano = Decano::find($iddecano);
+            $decano->delete();
+            return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
+        }else if($sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Egresado
+            return response()->json(['Mensaje'=>'Usuario no autorizado'],403);
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
         //
     }
 }

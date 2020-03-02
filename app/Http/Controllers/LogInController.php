@@ -14,6 +14,8 @@ class LogInController extends Controller
      */
     public function index()
     {
+        $sesion = new SesionController();
+        $sesion->cerrarSesion();
         return response()->json(['Mensaje'=>'Esperando credenciales'],200);
         
         //
@@ -37,14 +39,25 @@ class LogInController extends Controller
      */
     public function store(Request $request)
     {
+        $sesion = new SesionController();
+        $logs = new LogsController();
         $usuario = Usuario::where('usuario',$request->usuario)
         ->where('contrasena',$request->contrasena)
+        ->join('TipoUsuario','tipoUsuario.idtipousuario','=','Usuario.tipoUsuario')
+        ->select('dui','usuario','contrasena','tipousuario.tipousuario')
         ->first();
+        $tipoUsuario = '';
         
         if(!empty($usuario)){
-            return response()->json([true],200);
+            $tipoUsuario = $usuario['tipousuario'];
+            $sesion->setTipoUsuario($tipoUsuario);
+            $logs->store($tipoUsuario);
+            return response()->json(['Mensaje'=>'Conectado como '. $tipoUsuario],200);
+            #return response()->json([true],200);
         }else{
-            return response()->json([false],200);
+            
+            $logs->store('No ses');
+            return response()->json([false],401);
         }
         //
     }

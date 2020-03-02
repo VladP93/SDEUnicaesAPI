@@ -16,11 +16,18 @@ CREATE TABLE Persona(
     foto VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE TipoUsuario(
+    idTipoUsuario INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    tipoUsuario VARCHAR(20) NOT NULL
+);
+
 CREATE TABLE Usuario(
     dui VARCHAR(10) NOT NULL PRIMARY KEY,
     usuario VARCHAR(10) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
-    FOREIGN KEY(dui) REFERENCES Persona(dui)
+    tipoUsuario INT NOT NULL,
+    FOREIGN KEY(dui) REFERENCES Persona(dui),
+    FOREIGN KEY(tipoUsuario) REFERENCES TipoUsuario(idTipoUsuario)
 );
 
 CREATE TABLE Emisor(
@@ -183,6 +190,11 @@ CREATE TABLE DiplomaCertificacionEgresado(
     foto VARCHAR(255) NOT NULL,
     FOREIGN KEY(dui) REFERENCES Egresado(dui),
     FOREIGN KEY(diplomacertificacion) REFERENCES DiplomaCertificacion(iddiplomadocertificacion)
+);
+
+CREATE TABLE logs(
+    idLog INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    loginfo VARCHAR(20) NOT NULL
 );
 
 -- Datos Default
@@ -494,6 +506,9 @@ INSERT INTO Municipio(municipio, iddepartamento) values('Santiago de María',14)
 INSERT INTO Municipio(municipio, iddepartamento) values('Tecapán',14);
 INSERT INTO Municipio(municipio, iddepartamento) values('Usulután',14);
 
+--Log
+INSERT INTO Logs(loginfo) VALUES('Administrador');
+
 -- Ubicacion
 INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(220, 'By pass Carretera a Metapán y carretera antigua a San Salvador');
 INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(16, 'Carretera a Ilobasco, km. 56, Cantón Agua Zarca, Cabañas.');
@@ -734,7 +749,11 @@ VALUES('0000000-0','0000-000000-000-0','persona de','prueba','0000-0000','direci
 
 INSERT INTO Decano(dui,facultad,activo) VALUES('0000000-0',4,1);
 
-INSERT INTO Usuario(dui,usuario,contrasena) VALUES('0000000-0', 'user', 'pass');
+INSERT INTO TipoUsuario(tipoUsuario) VALUES('Administrador');
+INSERT INTO TipoUsuario(tipoUsuario) VALUES('Egresado');
+INSERT INTO TipoUsuario(tipoUsuario) VALUES('Institucion');
+
+INSERT INTO Usuario(dui,usuario,contrasena,tipoUsuario) VALUES('0000000-0', 'user', 'pass',1);
 
 INSERT INTO Egresado(dui,carnet) VALUES('0000000-0','2020-PP-000');
 INSERT INTO CarreraEgresado(dui,idcarrera) VALUES('0000000-0',26);
