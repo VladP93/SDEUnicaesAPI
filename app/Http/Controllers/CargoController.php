@@ -151,7 +151,7 @@ class CargoController extends Controller
         $sesion->setTipoUsuario($logs->getLogInfo());
         if($sesion->getTipoUsuario()=='Administrador'){
             #Acciones de Admin
-            $cargo = Cargo::find($idacargo);
+            $cargo = Cargo::find($idcargo);
             $cargo->delete();
             return response()->json(['Mensaje'=>'Elemento eliminardo'],200);
         }else if($sesion->getTipoUsuario()=='Egresado'){

@@ -50,7 +50,9 @@ class SesionController extends Controller
     }
     //
 /*
-    public function authPlantilla(){
+
+    // Autorizacion para Administrador
+    public function authPlantillaAdmin(){
         $logs = new LogsController();
         $sesion = new SesionController();
         $sesion->setTipoUsuario($logs->getLogInfo());
@@ -58,6 +60,19 @@ class SesionController extends Controller
             #Acciones de Admin
         }else if($sesion->getTipoUsuario()=='Egresado'){
             #Acciones de Egresado
+        }else{
+            #No loggeado/No se reconoce sesión
+            return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
+        }
+    }
+
+    // Autorizacion para Administrador, egresados y otros usuarios
+    public function authPlantillaUser(){
+        $logs = new LogsController();
+        $sesion = new SesionController();
+        $sesion->setTipoUsuario($logs->getLogInfo());
+        if($sesion->getTipoUsuario()=='Administrador' || $sesion->getTipoUsuario()=='Egresado'){
+            #Acciones de Admin y Egresado
         }else{
             #No loggeado/No se reconoce sesión
             return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
