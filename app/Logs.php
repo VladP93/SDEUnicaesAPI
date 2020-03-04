@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $idLog
  * @property string $loginfo
+ * @property string $loguser
  */
 class Logs extends Model
 {
@@ -21,6 +22,6 @@ class Logs extends Model
     /**
      * @var array
      */
-    protected $fillable = ['loginfo'];
+    protected $fillable = ['loginfo', 'loguser'];
 
 }

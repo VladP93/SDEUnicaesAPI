@@ -27,7 +27,7 @@ class SesionController extends Controller
     {
         $this->cerrarSesion();
         $logs = new LogsController();
-        $logs->store('No ses');
+        $logs->store('No ses','No ses');
         return response()->json(['Mensaje'=>'Sesión cerrada'],200);
     }
 

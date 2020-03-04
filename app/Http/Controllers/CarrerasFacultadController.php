@@ -26,7 +26,7 @@ class CarrerasFacultadController extends Controller
             ->join('Carrera','CarreraFacultad.idcarrera','=','Carrera.idcarrera')
             ->join('Facultad','CarreraFacultad.idfacultad','=','Facultad.idfacultad')
             ->join('TipoCarrera','Carrera.tipocarrera','=','TipoCarrera.idtipocarrera')
-            ->select('Carrera.carrera','Facultad.facultad','TipoCarrera.tipocarrera')
+            ->select('Carrera.idcarrera','Carrera.carrera','Facultad.facultad','TipoCarrera.tipocarrera')
             ->get();
             return $carrerasFacultad;
         }else if($sesion->getTipoUsuario()=='Egresado'){

@@ -14,14 +14,14 @@ class LogsController extends Controller
      */
     public function index()
     {
-        $loginfo = \DB::table('Logs')->latest('idLog')->first()->loginfo;
+        $loginfo = \DB::table('Logs')->latest('idLog')->first();
 
-        return $loginfo;
+        return response()->json($loginfo);
         //
     }
 
     public function getLogInfo(){
-        $loginfo = \DB::table('Logs')->latest('idLog')->first()->loginfo;
+        $loginfo = \DB::table('Logs')->latest('idLog','desc')->first()->loginfo;
         //echo $loginfo;
         return $loginfo;
     }
@@ -42,10 +42,11 @@ class LogsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($loginfo)
+    public function store($loginfo, $loguser)
     {
         $logs = new Logs();
         $logs->loginfo = $loginfo;
+        $logs->loguser = $loguser;
 
         $logs->save();
         //

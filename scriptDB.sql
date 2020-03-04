@@ -194,7 +194,8 @@ CREATE TABLE DiplomaCertificacionEgresado(
 
 CREATE TABLE logs(
     idLog INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    loginfo VARCHAR(20) NOT NULL
+    loginfo VARCHAR(20) NOT NULL,
+    loguser VARCHAR(10) NOT NULL
 );
 
 -- Datos Default
@@ -507,7 +508,7 @@ INSERT INTO Municipio(municipio, iddepartamento) values('Tecapán',14);
 INSERT INTO Municipio(municipio, iddepartamento) values('Usulután',14);
 
 --Log
-INSERT INTO Logs(loginfo) VALUES('Administrador');
+INSERT INTO Logs(loginfo,loguser) VALUES('Administrador','0000000-0');
 
 -- Ubicacion
 INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(220, 'By pass Carretera a Metapán y carretera antigua a San Salvador');
