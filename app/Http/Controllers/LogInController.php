@@ -52,7 +52,8 @@ class LogInController extends Controller
             $tipoUsuario = $usuario['tipousuario'];
             $sesion->setTipoUsuario($tipoUsuario);
             $logs->store($tipoUsuario,$usuario['dui']);
-            return response()->json(['Mensaje'=>'Conectado como '. $tipoUsuario],200);
+            return $tipoUsuario;
+            #return response()->json(['Mensaje'=>'Conectado como '. $tipoUsuario],200);
             #return response()->json([true],200);
         }else{
             

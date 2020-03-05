@@ -14,9 +14,14 @@ class CarreraEgresadoController extends Controller
      */
     public function index()
     {
+
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
         $carreras = \DB::table('CarreraEgresado')
         ->join('Carrera','Carrera.idcarrera','=','CarreraEgresado.idcarrera')
         ->select('Carrera.carrera')
+        ->where('CarreraEgresado.dui',$dui)
         ->get();
 
         return $carreras;
@@ -41,6 +46,15 @@ class CarreraEgresadoController extends Controller
      */
     public function store(Request $request)
     {
+        $carreraeg = new CarreraEgresado;
+
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+        
+        $carreraeg->idcarrera = $request->idcarrera;
+        $carreraeg->dui = $dui;
+        $carreraeg->save();
+        return response()->json(['Mensaje'=>'Carrera agregada exitosamente'],200);
         //
     }
 

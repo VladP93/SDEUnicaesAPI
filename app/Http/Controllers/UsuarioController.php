@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Usuario;
 use App\Persona;
+use App\Egresado;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -46,6 +47,7 @@ class UsuarioController extends Controller
             #Acciones de Admin
             $usuario = new Usuario;
             $persona = new Persona;
+            $egresado = new Egresado;
     
             $persona->dui = $request->dui;
             $persona->nit = $request->nit;
@@ -64,6 +66,10 @@ class UsuarioController extends Controller
             $usuario->contrasena = $request->contrasena;
             $usuario->tipousuario = 2;
             $usuario->save();
+
+            $egresado->dui = $request->dui;
+            $egresado->carnet = '';
+            $egresado.save();
             return response()->json(['Mensaje'=>'Nuevo Usuario: '.$request->usuario.' registrado'],200);
         }else if($sesion->getTipoUsuario()=='Egresado'){
             #Acciones de Egresado
@@ -127,6 +133,7 @@ class UsuarioController extends Controller
             #Acciones de Admin
             $usuario = Usuario::find($idusuario);
             $persona = Persona::find($idusuario);
+            $egresado = Egresado::find($idusuario);
     
             $persona->dui = $request->dui;
             $persona->nit = $request->nit;
@@ -145,6 +152,10 @@ class UsuarioController extends Controller
             $usuario->contrasena = $request->contrasena;
             $usuario->tipoUsuario = $request->tipousuario;
             $usuario->save();
+
+            $egresado->dui = $request->dui;
+            $egresado->carnet = '';
+            $egresado.save();
             return response()->json(['Mensaje'=>'Usuario: '.$request->usuario.' modificado'],200);
         }else if($sesion->getTipoUsuario()=='Egresado'){
             #Acciones de Egresado

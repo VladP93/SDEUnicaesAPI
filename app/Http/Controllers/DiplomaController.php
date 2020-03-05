@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Logs;
+use App\DiplomaCertificacion;
 use Illuminate\Http\Request;
 
-class LogsController extends Controller
+class DiplomaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,22 +14,9 @@ class LogsController extends Controller
      */
     public function index()
     {
-        $loginfo = \DB::table('Logs')->latest('idLog')->first();
-
-        return response()->json($loginfo);
+        $diplomas = DiplomaCertificacion::all();
+        return $diplomas;
         //
-    }
-
-    public function getLogInfo(){
-        $loginfo = \DB::table('Logs')->latest('idLog','desc')->first()->loginfo;
-        //echo $loginfo;
-        return $loginfo;
-    }
-
-    public function getLogUser(){
-        $loguser = \DB::table('Logs')->latest('idLog','desc')->first()->loguser;
-        //echo $loginfo;
-        return $loguser;
     }
 
     /**
@@ -48,23 +35,18 @@ class LogsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($loginfo, $loguser)
+    public function store(Request $request)
     {
-        $logs = new Logs();
-        $logs->loginfo = $loginfo;
-        $logs->loguser = $loguser;
-
-        $logs->save();
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Logs  $logs
+     * @param  \App\DiplomaCertificacion  $diplomaCertificacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Logs $logs)
+    public function show(DiplomaCertificacion $diplomaCertificacion)
     {
         //
     }
@@ -72,10 +54,10 @@ class LogsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Logs  $logs
+     * @param  \App\DiplomaCertificacion  $diplomaCertificacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Logs $logs)
+    public function edit(DiplomaCertificacion $diplomaCertificacion)
     {
         //
     }
@@ -84,10 +66,10 @@ class LogsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Logs  $logs
+     * @param  \App\DiplomaCertificacion  $diplomaCertificacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Logs $logs)
+    public function update(Request $request, DiplomaCertificacion $diplomaCertificacion)
     {
         //
     }
@@ -95,10 +77,10 @@ class LogsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Logs  $logs
+     * @param  \App\DiplomaCertificacion  $diplomaCertificacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Logs $logs)
+    public function destroy(DiplomaCertificacion $diplomaCertificacion)
     {
         //
     }

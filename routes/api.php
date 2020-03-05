@@ -40,6 +40,7 @@ Route::resource('/login','LogInController');
 Route::resource('/tiposusuario','TipoUsuarioController');
 Route::resource('/sesion','SesionController');
 Route::resource('/logsesion','LogsController');
+Route::resource('/diplomas','DiplomaController');
 //Route::get('/hola_mundo', function () {
 //    return 'Hola Mundo';
 //});

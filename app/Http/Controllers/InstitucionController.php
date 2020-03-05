@@ -18,7 +18,7 @@ class InstitucionController extends Controller
         $logs = new LogsController();
         $sesion = new SesionController();
         $sesion->setTipoUsuario($logs->getLogInfo());
-        if($sesion->getTipoUsuario()=='Administrador'){
+        if($sesion->getTipoUsuario()=='Administrador' || $sesion->getTipoUsuario()=='Egresado'){
             #Acciones de Admin
             $instituciones = \DB::table('Institucion')
             ->join('Ubicacion','Institucion.ubicacion','=','Ubicacion.idubicacion')
@@ -27,9 +27,6 @@ class InstitucionController extends Controller
             ->select('idinstitucion','Institucion.nombre','Ubicacion.direccion','Departamento.departamento','Municipio.municipio')
             ->get();
             return $instituciones;
-        }else if($sesion->getTipoUsuario()=='Egresado'){
-            #Acciones de Egresado
-            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
         }else{
             #No loggeado/No se reconoce sesión
             return response()->json(['Mensaje'=>'Sesión no iniciada'],403);

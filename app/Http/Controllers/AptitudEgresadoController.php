@@ -14,9 +14,14 @@ class AptitudEgresadoController extends Controller
      */
     public function index()
     {
+
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
         $aptitudes = \DB::table('AptitudEgresado')
         ->join('Aptitud','Aptitud.idaptitud','=','AptitudEgresado.idaptitud')
         ->select('Aptitud.aptitud')
+        ->where('AptitudEgresado.dui',$dui)
         ->get();
 
         return $aptitudes;
@@ -41,6 +46,15 @@ class AptitudEgresadoController extends Controller
      */
     public function store(Request $request)
     {
+        $aptitudeg = new AptitudEgresado;
+
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
+        $aptitudeg->idaptitud = $request->idaptitud;
+        $aptitudeg->dui = $dui;
+        $aptitudeg->save();
+        return response()->json(['Mensaje'=>'Aptitud agregada exitosamente'],200);
         //
     }
 

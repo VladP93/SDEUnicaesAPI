@@ -18,11 +18,9 @@ class AptitudController extends Controller
         $logs = new LogsController();
         $sesion = new SesionController();
         $sesion->setTipoUsuario($logs->getLogInfo());
-        if($sesion->getTipoUsuario()=='Administrador'){
+        if($sesion->getTipoUsuario()=='Administrador' || $sesion->getTipoUsuario()=='Egresado'){
             $aptitudes = Aptitud::all();
             return $aptitudes;
-        }else if($sesion->getTipoUsuario()=='Egresado'){
-            return response()->json(['Mensaje'=>'No autorizado'],401);
         }else{
             return response()->json(['Mensaje'=>'Sesión no iniciada'],403);
         }

@@ -14,11 +14,16 @@ class ExperienciaLaboralController extends Controller
      */
     public function index()
     {
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
+
         $experiencia = \DB::table('ExperienciaLaboral')
         ->join('Institucion','Institucion.idinstitucion','=','ExperienciaLaboral.institucion')
         ->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
         ->join('AreaLaboral','AreaLaboral.idArea','=','ExperienciaLaboral.arealaboral')
         ->select('Institucion.nombre','Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+        ->where('ExperienciaLaboral.egresado',$dui)
         ->get();
         
 
@@ -44,6 +49,19 @@ class ExperienciaLaboralController extends Controller
      */
     public function store(Request $request)
     {
+        $experiencialaboral = new ExperienciaLaboral;
+
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
+        $experiencialaboral->institucion = $request->institucion;
+        $experiencialaboral->cargo = $request->cargo;
+        $experiencialaboral->arealaboral = $request->arealaboral;
+        $experiencialaboral->fechainicio = $request->fechainicio;
+        $experiencialaboral->fechafin = $request->fechafin;
+        $experiencialaboral->egresado = $dui;
+        $experiencialaboral->save();
+        return response()->json(['Mensaje'=>'Experiencia laboral agregada exitosamente'],200);
         //
     }
 

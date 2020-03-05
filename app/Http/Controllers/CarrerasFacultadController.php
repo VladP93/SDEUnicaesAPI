@@ -20,7 +20,7 @@ class CarrerasFacultadController extends Controller
         $logs = new LogsController();
         $sesion = new SesionController();
         $sesion->setTipoUsuario($logs->getLogInfo());
-        if($sesion->getTipoUsuario()=='Administrador'){
+        if($sesion->getTipoUsuario()=='Administrador' || $sesion->getTipoUsuario()=='Egresado'){
             #Acciones de Admin
             $carrerasFacultad = \DB::table('CarreraFacultad')
             ->join('Carrera','CarreraFacultad.idcarrera','=','Carrera.idcarrera')
@@ -29,9 +29,6 @@ class CarrerasFacultadController extends Controller
             ->select('Carrera.idcarrera','Carrera.carrera','Facultad.facultad','TipoCarrera.tipocarrera')
             ->get();
             return $carrerasFacultad;
-        }else if($sesion->getTipoUsuario()=='Egresado'){
-            return response()->json(['Mensaje'=>'Usuario no autorizado'],401);
-            #Acciones de Egresado
         }else{
             #No loggeado/No se reconoce sesión
             return response()->json(['Mensaje'=>'Sesión no iniciada'],403);

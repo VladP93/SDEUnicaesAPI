@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\diplomacertificacionegresado;
+use App\DiplomaCertificacionEgresado;
 use Illuminate\Http\Request;
 
 class DiplomaEgresadoController extends Controller
@@ -14,9 +14,14 @@ class DiplomaEgresadoController extends Controller
      */
     public function index()
     {
+
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
         $diplomas = \DB::table('DiplomaCertificacionEgresado')
         ->join('DiplomaCertificacion','DiplomaCertificacion.iddiplomadocertificacion','=','DiplomaCertificacionEgresado.diplomacertificacion')
         ->select('DiplomaCertificacionEgresado.dui', 'DiplomaCertificacion.nombre')
+        ->where('DiplomaCertificacionEgresado.dui',$dui)
         ->get();
 
         return $diplomas;
@@ -41,6 +46,17 @@ class DiplomaEgresadoController extends Controller
      */
     public function store(Request $request)
     {
+        $diplomaeg = new DiplomaCertificacionEgresado;
+
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
+        $diplomaeg->diplomacertificacion = $request->diplomacertificacion;
+        $diplomaeg->fecha = $request->fecha;
+        $diplomaeg->foto = '';
+        $diplomaeg->dui = $dui;
+        $diplomaeg->save();
+        return response()->json(['Mensaje'=>'Diploma agregado exitosamente'],200);
         //
     }
 

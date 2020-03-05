@@ -16,8 +16,12 @@ class PerfilController extends Controller
     public function index()
     {
         //
+        $log = new LogsController();
+        $dui = $log->getLogUser();
+
         $egresado = \DB::table('Egresado')
         ->join('Persona','Egresado.dui','=','Persona.dui')
+        ->where('Persona.dui',$dui)
         //->join('CarreraEgresado','Egresado.dui','=','CarreraEgresado.dui')
         //->join('Carrera','CarreraEgresado.idcarrera','=','Carrera.idcarrera')
         //->join('DiplomaCertificacionEgresado','Egresado.dui','=','DiplomaCertificacionEgresado.dui')
@@ -32,7 +36,7 @@ class PerfilController extends Controller
         //'Carrera.carrera','DiplomaCertificacion.nombre','Aptitud.aptitud','Institucion.nombre',
         //'Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
         // -with('Aptitud');
-        ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono')
+        ->select('Persona.dui','Persona.nombre as nombrePersona','Persona.apellido','Persona.correo','Persona.telefono','Persona.foto')
         ->get();
 
         return $egresado;
