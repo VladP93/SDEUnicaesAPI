@@ -63,7 +63,7 @@ class CarrerasFacultadController extends Controller
             $carrera = new Carrera;
     
             $carrera->carrera = $request->carrera;
-            $carrera->getTipocarrera = $request->getTipocarrera;
+            $carrera->tipocarrera = $request->tipocarrera;
             $carrera->save();
             $carreraFacultad->idcarrera = \DB::table('Carrera')->latest('idcarrera')->first()->idcarrera;
             $carreraFacultad->idfacultad = $request->idfacultad;
