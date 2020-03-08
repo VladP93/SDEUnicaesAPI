@@ -56,9 +56,15 @@ class UsuarioController extends Controller
             $persona->telefono = $request->telefono;
             $persona->direccion = $request->direccion;
             $persona->correo = $request->correo;
-            $persona->fechanacimiento = $request->fechanacimiento;
-            $persona->sexo = $request->sexo;
-            $persona->foto = $request->foto;
+            $fechaphp = strtotime($request->fechanacimiento);
+            $fechamysql = date('Y-m-d',$fechaphp);
+            $persona->fechanacimiento = $fechamysql;
+            if(isset($request->sexo)){
+                $persona->sexo = $request->sexo;
+            }else{
+                $persona->sexo = 'X';
+            }
+            $persona->foto = '';
             $persona->save();
     
             $usuario->dui = $request->dui;
@@ -69,7 +75,7 @@ class UsuarioController extends Controller
 
             $egresado->dui = $request->dui;
             $egresado->carnet = '';
-            $egresado.save();
+            $egresado->save();
             return response()->json(['Mensaje'=>'Nuevo Usuario: '.$request->usuario.' registrado'],200);
         }else if($sesion->getTipoUsuario()=='Egresado'){
             #Acciones de Egresado

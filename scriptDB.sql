@@ -42,7 +42,7 @@ CREATE TABLE Receptor(
 
 CREATE TABLE Egresado(
     dui VARCHAR(10) NOT NULL PRIMARY KEY,
-    carnet VARCHAR(11) NOT NULL UNIQUE,
+    carnet VARCHAR(11) NOT NULL,
     FOREIGN KEY(dui) REFERENCES Persona(dui)
 );
 
