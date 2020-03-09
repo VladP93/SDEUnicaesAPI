@@ -18,13 +18,10 @@ class CargoController extends Controller
         $logs = new LogsController();
         $sesion = new SesionController();
         $sesion->setTipoUsuario($logs->getLogInfo());
-        if($sesion->getTipoUsuario()=='Administrador'){
+        if($sesion->getTipoUsuario()=='Administrador' || $sesion->getTipoUsuario()=='Egresado'){
             #Acciones de Admin
             $cargos = Cargo::all();
             return $cargos;
-        }else if($sesion->getTipoUsuario()=='Egresado'){
-            #Acciones de Egresado
-            return response()->json(['Mensaje'=>'No autorizado'],401);
         }else{
             #No loggeado/No se reconoce sesión
             return response()->json(['Mensaje'=>'Sesión no iniciada'],403);

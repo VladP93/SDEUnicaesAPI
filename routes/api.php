@@ -41,6 +41,7 @@ Route::resource('/tiposusuario','TipoUsuarioController');
 Route::resource('/sesion','SesionController');
 Route::resource('/logsesion','LogsController');
 Route::resource('/diplomas','DiplomaController');
+Route::resource('/egresados','EgresadoController');
 //Route::get('/hola_mundo', function () {
 //    return 'Hola Mundo';
 //});

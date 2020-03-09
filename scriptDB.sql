@@ -511,9 +511,25 @@ INSERT INTO Municipio(municipio, iddepartamento) values('Usulután',14);
 INSERT INTO Logs(loginfo,loguser) VALUES('Administrador','0000000-0');
 
 -- Ubicacion
+-- INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(0, 'direccion'); 
 INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(220, 'By pass Carretera a Metapán y carretera antigua a San Salvador');
 INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(16, 'Carretera a Ilobasco, km. 56, Cantón Agua Zarca, Cabañas.');
 INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(220, '25 Av. sur entre 9a y 11a calle oriente. Barrio San Rafael');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(193, 'Esquina Formada entre 51 Av. Norte No. 2636, Colonia Flor Blanca');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(193, '37ª Avenida Sur y 12 Calle Poniente Número 566, Colonia Flor Blanca');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(193, 'Alameda Juan Pablo Segundo y Diecisiete Avenida Norte Edificio B-1, Segundo Nivel');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(193, '15 Cl Pte y 7 Av Nte No 521');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(193, 'Calle Arturo Ambrogi No465, Col. Escalón');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(193, '91 Av. Norte No. 440, Col. Escalón');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(71, 'Urbanización Santa Elena, Edificio Ésika, Calle Conchagua Oriente');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(71, 'Edificio FEPADE ISEADE 2º Nivel, Calle El Pedregal');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(71, 'Edificio FUSADES, Bulevard y Urbanización Santa Elena');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(193, 'Pasaje 1 Casa No. 8 Col. Avila');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(71, 'Calle Las Rosas No.35, Colonia La Sultana');
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(220, '16 Avenida Sur, Entre 29 y, 31 Calle Pte'); 
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(220, 'Calle José Mariano Mendez, entre 2° Avenida Sur y 4° Avenida Sur, 11 Calle Pte. 10'); 
+INSERT INTO Ubicacion(idmunicipio, direccion) VALUES(220, '3a Calle Oriente entre 3a y 5a Avenida Sur #11');
+
 
 -- Facultades
 INSERT INTO Facultad(facultad,idubicacion) VALUES('Facultad de Ciencias de la Salud',1);
@@ -623,9 +639,24 @@ INSERT INTO CarreraFacultad(idcarrera, idfacultad) VALUES(33,6);
 INSERT INTO CarreraFacultad(idcarrera, idfacultad) VALUES(34,6);
 
 -- Instituciones
+-- INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('nombre',{idUbicacion},'####-####');
 INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('UNICAES, Santa Ana',1,'2484-0600');
 INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('UNICAES, Ilobasco',2,'2378-1500');
 INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Fe y Alegría',3, '2447-2380');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('INSTITUTO SALVADOREÑO DE CONTADORES PÚBLICOS (ISCP)',4,'2523-0500');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('IEPROES',5,'2298-9325');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('INJUVE',6,'2527-7400');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Diario El Mundo',7,'2234-8000');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Grupo GD',8,'2263-4141');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Credimás',9,'2535-5900');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Belcorp',10,'2278-7930');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('FUNDEMAS',11,'2212-1799');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('FUSADES',12,'2248-5600');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Camara Salvadoreña de turismo CASATUR',13,'2132-0200');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Editoriales la Ceiba',14,'2243-5581');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('Distribuidora GalHer',15,'2445-6300');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('INCO Sucursal Santa Ana',16,'2448-0764');
+INSERT INTO Institucion(nombre,ubicacion, telefono) VALUES('MP Mobiliario Santa Ana',17,'7048-1706');
 
 
 -- Areas Laborales
@@ -736,14 +767,48 @@ INSERT INTO Aptitud(aptitud) VALUES('Trabajo en equipo');
 INSERT INTO Aptitud(aptitud) VALUES('Amable');
 INSERT INTO Aptitud(aptitud) VALUES('Puntual');
 
-INSERT INTO Cargo(cargo) VALUES('CEO');
-INSERT INTO Cargo(cargo) VALUES('Coordinador de venta');
-INSERT INTO Cargo(cargo) VALUES('Coordinador de bodega');
-INSERT INTO Cargo(cargo) VALUES('Coordinador RRHH');
-INSERT INTO Cargo(cargo) VALUES('Lider de Ventas');
-INSERT INTO Cargo(cargo) VALUES('Transportadores');
+-- Cargos
 INSERT INTO Cargo(cargo) VALUES('Aux de bodega');
 INSERT INTO Cargo(cargo) VALUES('Aux de transporte');
+INSERT INTO Cargo(cargo) VALUES('Consultoría‎');
+INSERT INTO Cargo(cargo) VALUES('Coordinador de bodega');
+INSERT INTO Cargo(cargo) VALUES('Coordinador de venta');
+INSERT INTO Cargo(cargo) VALUES('Coordinador RRHH');
+INSERT INTO Cargo(cargo) VALUES('Tesorero');
+INSERT INTO Cargo(cargo) VALUES('Almacenero');
+INSERT INTO Cargo(cargo) VALUES('Asistente personal');
+INSERT INTO Cargo(cargo) VALUES('Auxiliar de servicios');
+INSERT INTO Cargo(cargo) VALUES('Becario');
+INSERT INTO Cargo(cargo) VALUES('Consejo de administración');
+INSERT INTO Cargo(cargo) VALUES('Director científico');
+INSERT INTO Cargo(cargo) VALUES('Director comercial');
+INSERT INTO Cargo(cargo) VALUES('Director de comunicacion');
+INSERT INTO Cargo(cargo) VALUES('Director de finanzas');
+INSERT INTO Cargo(cargo) VALUES('Director de recursos humanos');
+INSERT INTO Cargo(cargo) VALUES('Director de riesgos');
+INSERT INTO Cargo(cargo) VALUES('Director de seguridad');
+INSERT INTO Cargo(cargo) VALUES('Director de sistemas de información');
+INSERT INTO Cargo(cargo) VALUES('Director de tecnología');
+INSERT INTO Cargo(cargo) VALUES('Director digital');
+INSERT INTO Cargo(cargo) VALUES('Director ejecutivo');
+INSERT INTO Cargo(cargo) VALUES('Director general');
+INSERT INTO Cargo(cargo) VALUES('Director técnico');
+INSERT INTO Cargo(cargo) VALUES('Ejecutivo (cargo)');
+INSERT INTO Cargo(cargo) VALUES('Empresario');
+INSERT INTO Cargo(cargo) VALUES('Gerente');
+INSERT INTO Cargo(cargo) VALUES('Gerente de producto');
+INSERT INTO Cargo(cargo) VALUES('Gerente general');
+INSERT INTO Cargo(cargo) VALUES('Gestión deportiva');
+INSERT INTO Cargo(cargo) VALUES('Jefe de marca');
+INSERT INTO Cargo(cargo) VALUES('Jefe de operaciones');
+INSERT INTO Cargo(cargo) VALUES('Lider de Ventas');
+INSERT INTO Cargo(cargo) VALUES('Obrero de línea');
+INSERT INTO Cargo(cargo) VALUES('Recepcionista');
+INSERT INTO Cargo(cargo) VALUES('Secretario admi.');
+INSERT INTO Cargo(cargo) VALUES('Secretario general');
+INSERT INTO Cargo(cargo) VALUES('Transportadores');
+INSERT INTO Cargo(cargo) VALUES('Veedor (viticultura)');
+INSERT INTO Cargo(cargo) VALUES('Vendedor');
 
 INSERT INTO Persona(dui,nit,nombre,apellido,telefono,direccion,correo,fechanacimiento,sexo,foto)
 VALUES('0000000-0','0000-000000-000-0','persona de','prueba','0000-0000','direcion de prueba','correo.prueba@catolica.edu.sv',NOW(),'X','url.fotoprueba.jgp');
@@ -764,3 +829,35 @@ INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(2,'0000000-0');
 
 INSERT INTO ExperienciaLaboral(egresado,institucion,cargo,arealaboral,fechainicio,fechafin)
 VALUES('0000000-0',3,4,69,NOW(),NOW());
+
+-- Usuarios default
+INSERT INTO Persona(dui,nit,nombre,apellido,telefono,direccion,correo,fechanacimiento,sexo,foto)
+VALUES('12121212-0','1212-121212-121-2','Saul','Goodman','1212-1212','Colonia Ivu #23 Santa Ana','saul.goodman@catolica.edu.sv',NOW(),'M','url.fotoprueba.jgp');
+INSERT INTO Usuario(dui,usuario,contrasena,tipoUsuario) VALUES('12121212-0', 'saulg', 'pass',2);
+INSERT INTO Egresado(dui,carnet) VALUES('12121212-0','2020-SG-000');
+INSERT INTO CarreraEgresado(dui,idcarrera) VALUES('12121212-0',11);
+INSERT INTO DiplomaCertificacionEgresado(dui,diplomacertificacion,fecha,foto) VALUES('12121212-0',10,NOW(),'url.fotodiploma.jpg');
+INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(2,'12121212-0');
+INSERT INTO ExperienciaLaboral(egresado,institucion,cargo,arealaboral,fechainicio,fechafin)
+VALUES('12121212-0',7,9,49,NOW(),NOW());
+
+INSERT INTO Persona(dui,nit,nombre,apellido,telefono,direccion,correo,fechanacimiento,sexo,foto)
+VALUES('13131313-0','1313-131313-131-3','Mauricio Enrique','Carias Grijalva','1313-1313','Col. El trebol etapa 3 casa #37','mauricio.grijalva@catolica.edu.sv',NOW(),'M','url.fotoprueba.jgp');
+INSERT INTO Usuario(dui,usuario,contrasena,tipoUsuario) VALUES('13131313-0', 'carias13', 'pass',2);
+INSERT INTO Egresado(dui,carnet) VALUES('13131313-0','2020-CG-000');
+INSERT INTO CarreraEgresado(dui,idcarrera) VALUES('13131313-0',26);
+INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(1,'13131313-0');
+INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(2,'13131313-0');
+INSERT INTO ExperienciaLaboral(egresado,institucion,cargo,arealaboral,fechainicio,fechafin)
+VALUES('13131313-0',7,3,25,NOW(),NOW());
+
+INSERT INTO Persona(dui,nit,nombre,apellido,telefono,direccion,correo,fechanacimiento,sexo,foto)
+VALUES('14141414-0','1414-141414-141-4','Carolina','Rodriguez Solito','1414-1414','El palmar casa # 12','carolina.rodriguez@catolica.edu.sv',NOW(),'F','url.fotoprueba.jgp');
+INSERT INTO Usuario(dui,usuario,contrasena,tipoUsuario) VALUES('14141414-0', 'caro12', 'pass',2);
+INSERT INTO Egresado(dui,carnet) VALUES('14141414-0','2020-RS-000');
+INSERT INTO CarreraEgresado(dui,idcarrera) VALUES('14141414-0',26);
+INSERT INTO DiplomaCertificacionEgresado(dui,diplomacertificacion,fecha,foto) VALUES('14141414-0',3,NOW(),'url.fotodiploma.jpg');
+INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(3,'14141414-0');
+INSERT INTO AptitudEgresado(idaptitud,dui) VALUES(4,'14141414-0');
+INSERT INTO ExperienciaLaboral(egresado,institucion,cargo,arealaboral,fechainicio,fechafin)
+VALUES('14141414-0',15,33,78,NOW(),NOW());

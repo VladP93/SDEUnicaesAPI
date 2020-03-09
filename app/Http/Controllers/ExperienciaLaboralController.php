@@ -22,12 +22,12 @@ class ExperienciaLaboralController extends Controller
         ->join('Institucion','Institucion.idinstitucion','=','ExperienciaLaboral.institucion')
         ->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
         ->join('AreaLaboral','AreaLaboral.idArea','=','ExperienciaLaboral.arealaboral')
-        ->select('Institucion.nombre','Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+        ->select('Institucion.nombre','Cargo.cargo', \DB::raw('DATE_FORMAT(ExperienciaLaboral.fechainicio, "%d-%b-%Y") as fechainicio'), \DB::raw('DATE_FORMAT(ExperienciaLaboral.fechafin, "%d-%b-%Y") as fechafin'),'AreaLaboral.area')
         ->where('ExperienciaLaboral.egresado',$dui)
         ->get();
         
-
         return $experiencia;
+        # DB::raw('DATE_FORMAT(cust.cust_dob, "%d-%b-%Y")
         //
     }
 
@@ -77,7 +77,7 @@ class ExperienciaLaboralController extends Controller
         ->join('Institucion','Institucion.idinstitucion','=','ExperienciaLaboral.institucion')
         ->join('Cargo','ExperienciaLaboral.cargo','=','Cargo.idcargo')
         ->join('AreaLaboral','AreaLaboral.idArea','=','ExperienciaLaboral.arealaboral')
-        ->select('Institucion.nombre','Cargo.cargo','ExperienciaLaboral.fechainicio','ExperienciaLaboral.fechafin','AreaLaboral.area')
+        ->select('Institucion.nombre','Cargo.cargo', \DB::raw('DATE_FORMAT(ExperienciaLaboral.fechainicio, "%d-%b-%Y") as fechainicio'), \DB::raw('DATE_FORMAT(ExperienciaLaboral.fechafin, "%d-%b-%Y") as fechafin'),'AreaLaboral.area')
         ->where('ExperienciaLaboral.egresado',$idexperiencialaboral)
         ->get();
         
