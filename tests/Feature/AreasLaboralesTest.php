@@ -9,7 +9,7 @@ use App\AreaLaboral;
 
 $arealaboral = new AreaLaboral;
 
-class AreasLabolaresTest extends TestCase
+class AreasLaboralesTest extends TestCase
 {
     /**
      * A basic feature test example.

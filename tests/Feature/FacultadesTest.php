@@ -26,7 +26,7 @@ class FacultadTest extends TestCase
     public function testPostFacultad()
     {
         $facultad->idfacultad = -1;
-        $facultad->facultad = 1;
+        $facultad->facultad = "Facultad_test_post";
         $facultad->idubicacion = 1;
 
         $response = $this->post('api/facultades', $facultad->toArray());
@@ -35,7 +35,7 @@ class FacultadTest extends TestCase
 
     public function testPutFacultad()
     {
-        $facultad->facultad = 2;
+        $facultad->facultad = "Facultad_test_put";
 
         $response = $this->post('api/facultades/'.$facultad->idfacultad, $facultad->toArray());
         $response->assertStatus(200);
